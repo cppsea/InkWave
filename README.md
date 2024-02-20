@@ -3,3 +3,6 @@ InkWave is all about developing a machine learning model capable of converting h
 # Dataset
 We will be using these kaggle datasets to train our models: https://www.kaggle.com/datasets/landlord/handwriting-recognition/data (CV Model Dataset)
 https://www.kaggle.com/datasets/vipin20/nlp-word-correction (NLP Model Dataset)
+
+# Tech Doc Link
+https://docs.google.com/document/d/1btfWL-6h_YLID7R_LKtT4L6QeBYJlxQ6F1TWeHM_u-8/edit?usp=sharing
