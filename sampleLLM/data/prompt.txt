@@ -1,1 +1,1 @@
-Reformat input so that it diplays the text in its indented format
+Reformat input so that it diplays the text in its intended format
