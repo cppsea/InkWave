@@ -1,7 +1,7 @@
 from openai import OpenAI
 
 # Initializing the OpenAI client with the API key
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="redacted")
 
 def main():
     # Open the file named 'input.txt' in read mode and read contents
