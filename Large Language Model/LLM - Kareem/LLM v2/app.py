@@ -16,6 +16,10 @@ def main():
    with open('data/input.txt', 'r') as file:
       input_file = file.read()
    
+   # copy input file to output file
+   with open("data/output.txt", "w") as file:
+         file.write(input_file)
+   
    while True:
       user_message = input(f"\n===========================================================\
                             \n(1) Correct the spelling and grammar errors of the document \
@@ -26,10 +30,12 @@ def main():
       print("\n")
       
       if user_message == "1": # spelling and grammar correction
-         prompt = "Without reformatting the document, this includes creating new lines or altering the spacing in any way and keeping the characters where they are, fix the spelling errors of the following document"
+         prompt = "Without reformatting the document, this includes creating new lines or altering the spacing in any way and \
+         keeping the characters where they are, fix the spelling errors of the following document"
       
       elif user_message == "2": # reformat the document
-         prompt = "Reformat input so that it displays the text in its intended format."
+         prompt = "Reformat input so that it displays the text in its intended format. Do not omit any words, if it isn't clear \
+         how to format a word or phrase, leave it in the same place. Don't add any unecessary words or characters that weren't apart of the original text"
 
       elif user_message == "3": # print the current version of the document
          output_file = "data/output.txt"
