@@ -1,8 +1,9 @@
-import nltk
 import re
-from IPython.core.display import display, HTML
+import nltk
+import os
+from pyhtml2pdf import converter
 from rake_nltk import Rake
-
+from IPython.core.display import display, HTML
 nltk.download('stopwords')
 nltk.download('punkt')
 
@@ -16,7 +17,6 @@ for i in text:
 print(data)
 
 def replace_bullet_points(text):
-    indent = 0
     space = 0
     replaced_lines = []
     for i in text:
@@ -29,7 +29,22 @@ def replace_bullet_points(text):
       else:
         break
     return '\n'.join(replaced_lines)
+  
+def replace_bold(text):
+    stars = ""
+    replaced_lines = []
+    for i in text:
+      if i == "*":
+          # Replace the leading spaces with dashes
+          stars += "*"
+      else:
+        text = text.replace(stars, "<b>", 1)
+        text = text.replace(stars, "</b>", 1)
+        replaced_lines.append(text)
+        break
 
+    return '\n'.join(replaced_lines)
+  
 text_filename = "transformed_text.txt"
 with open(text_filename, "w") as file:
   for line in text:
@@ -38,7 +53,7 @@ with open(text_filename, "w") as file:
         file.write(new_line)
       else:
         file.write(line)
-        
+
 def capitalize_first_letter(match,keyword):
     matched_word = match.group(0)
     if matched_word.lower() == keyword.lower():  # Check if the matched word is the keyword itself
@@ -47,7 +62,7 @@ def capitalize_first_letter(match,keyword):
         return matched_word
     else:
         return matched_word.capitalize()
-    
+      
 def highlight_keywords(text):
     highlighted_strings = []
     r = Rake()
@@ -67,10 +82,8 @@ def highlight_keywords(text):
     combined_html = '<br>'.join(highlighted_strings)
 
     return highlighted_strings
-
+  
 result = highlight_keywords(open("transformed_text.txt").readlines())
-
-print(type(result))
 
 file_path = "output.html"
 with open(file_path, "w") as file:
@@ -80,7 +93,10 @@ with open(file_path, "w") as file:
 
   for line_str in result:
 
-    if line_str.startswith("-"):
+
+    if line_str.startswith('*'):
+      file.write(replace_bold(line_str))
+    elif line_str.startswith("-"):
       for i in line_str:
         if i == "-":
           curr_num += 1
@@ -119,3 +135,8 @@ with open(file_path, "w") as file:
 
       file.write(HTML(line_str).data)
       file.write("<br>")
+
+
+# Convert HTML to PDF
+path = os.path.abspath('output.html')
+converter.convert(f'file:///{path}', 'output.pdf')
