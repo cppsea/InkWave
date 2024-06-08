@@ -3,8 +3,11 @@ from paddleocr import PaddleOCR,draw_ocr
 # Paddleocr supports Chinese, English, French, German, Korean and Japanese.
 # You can set the parameter `lang` as `ch`, `en`, `fr`, `german`, `korean`, `japan`
 # to switch the language model in order.
-ocr = PaddleOCR(use_angle_cls=True, lang='en') # need to run only once to download and load model into memory
-img_path = './traindata/notes.jpg'
+local_model_dir = './local_paddleocr_model/'
+
+# Initialize PaddleOCR with the local model directory
+ocr = PaddleOCR(use_angle_cls=True, lang='en', rec_model_dir=f'{local_model_dir}/rec') 
+img_path = './traindata/TRAIN_00001.jpg'
 result = ocr.ocr(img_path, cls=True)
 
 
