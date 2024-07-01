@@ -8,9 +8,9 @@ nltk.download('stopwords')
 nltk.download('punkt')
 
 
-def nlp_format():
-    # This main function reads the original text file, applies the necessary transformations, highlights keywords, and writes the output to an HTML file.             
-  def main_driver():
+def nlp_format(original_path):
+  # This main function reads the original text file, applies the necessary transformations, highlights keywords, and writes the output to an HTML file.             
+  def main_driver(orignal_path):
     original_path = "data.txt"
     text = read_file(original_path)
     transformed_text = replace_bullet_points(text)
@@ -25,8 +25,10 @@ def nlp_format():
     # Convert HTML to PDF
     path = os.path.abspath('output.html')
     converter.convert(f'file:///{path}', 'output.pdf')
+    
+    return
       
-  main_driver()
+  main_driver(orignal_path=original_path)
   
   # Reading and Processing the Initial Text Data
   def read_file(original_path):
