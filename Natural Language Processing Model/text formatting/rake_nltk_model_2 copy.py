@@ -4,32 +4,11 @@ import os
 from pyhtml2pdf import converter
 from rake_nltk import Rake
 from IPython.core.display import display, HTML
+
 nltk.download('stopwords')
 nltk.download('punkt')
 
-
-def nlp_format(original_path):
-  # This main function reads the original text file, applies the necessary transformations, highlights keywords, and writes the output to an HTML file.             
-  def main_driver(orignal_path):
-    original_path = "data.txt"
-    text = read_file(original_path)
-    transformed_text = replace_bullet_points(text)
-    transformed_text_LLM = "transformed_text.txt"
-    transform_text(transformed_text_LLM)
-    highlighted_text = highlight_keywords(transformed_text)
-    
-    # Write the highlighted text to an HTML file
-    output_path = "output.html"
-    bullet_points_formatting(output_path)
-    
-    # Convert HTML to PDF
-    path = os.path.abspath('output.html')
-    converter.convert(f'file:///{path}', 'output.pdf')
-    
-    return
-      
-  main_driver(orignal_path=original_path)
-  
+def nlp_format(original_path):  
   # Reading and Processing the Initial Text Data
   def read_file(original_path):
       text = open(original_path)
@@ -170,6 +149,27 @@ def nlp_format(original_path):
 
           file.write(HTML(line_str).data)
           file.write("<br>")
-
-
+    # This main function reads the original text file, applies the necessary transformations, highlights keywords, and writes the output to an HTML file.             
+  def main_driver(original_path):
+      text = read_file(original_path)
+      transformed_text = replace_bullet_points(text)
+      transformed_text_LLM = "transformed_text.txt"
+      transform_text(transformed_text_LLM)
+      highlighted_text = highlight_keywords(transformed_text)
+      
+      # Write the highlighted text to an HTML file
+      output_path = "output.html"
+      bullet_points_formatting(output_path)
+      
+      # Convert HTML to PDF
+      path = os.path.abspath(output_path)
+      pdf_output_path = 'output.pdf'
+      converter.convert(f'file:///{path}', pdf_output_path)
+      
+      # Print the PDF output file name
+      print(f"PDF Output File Name: {pdf_output_path}")
   
+  main_driver(original_path=original_path)
+
+# Test the function with a sample text file
+nlp_format("data.txt")
