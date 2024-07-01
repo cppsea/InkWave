@@ -5,7 +5,7 @@ from pyhtml2pdf import converter
 from rake_nltk import Rake
 from IPython.core.display import display, HTML
 
-nltk.download('stopwords')
+nltk.download('stopwords') 
 nltk.download('punkt')
 
 def nlp_format(original_path):  
