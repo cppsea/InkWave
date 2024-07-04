@@ -169,7 +169,7 @@ def nlp_format(original_path):
       # Print the PDF output file name
       print(f"PDF Output File Name: {pdf_output_path}")
   
-  main_driver(original_path=original_path)
+  main_driver(original_path)
 
 # Test the function with a sample text file
-nlp_format("data.txt")
+nlp_format("LLM_preformatted.txt")
