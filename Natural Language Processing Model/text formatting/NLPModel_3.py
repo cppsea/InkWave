@@ -17,12 +17,16 @@ def read_file(original_path):
         data += i
     return data 
 
-def nlp_format(text_content):  
+def nlp_format(text_content):
+    # This function aims to replace bullet points in the text with a specific format. 
+    # It counts leading spaces to determine the level of bulleting (though the actual logic seems incorrect and might need a review for correct behavior). 
+    # It returns the modified lines as a single string joined by newline characters.  
     def replace_bullet_points(text):
         space = 0
         replaced_lines = []
         for i in text:
             if i == "-":
+                # Replace the leading spaces with dashes
                 text = text.replace(' ', '-', space)
                 replaced_lines.append(text)
             elif i == " ":
@@ -30,7 +34,8 @@ def nlp_format(text_content):
             else:
                 break
         return '\n'.join(replaced_lines)
-
+    
+    # This function aims to replace bold text in the input text with HTML bold tags.
     def replace_bold(text):
         stars = ""
         replaced_lines = []
@@ -43,6 +48,7 @@ def nlp_format(text_content):
                 replaced_lines.append(text)
                 break
         return '\n'.join(replaced_lines)
+
 
     def transform_text(text):
         transformed_text = []
