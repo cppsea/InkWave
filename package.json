@@ -4,7 +4,8 @@
   "description": "converts handwritten notes into digital text",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "server": "npx ts-node src/server/server.ts"
   },
   "repository": {
     "type": "git",
