@@ -21,6 +21,7 @@
     "electron": "^33.2.0"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "mongodb": "^6.10.0",
     "mongoose": "^8.8.1"
