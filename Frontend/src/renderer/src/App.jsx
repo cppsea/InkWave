@@ -1,11 +1,13 @@
+import NotesPage from '/src/pages/ReformattingNotes/NotesPage.jsx';
+import '/src/pages/ReformattingNotes/NotesPage.css';
 function App() {
 
-  return (
-    <div>
-      Hello World
-    </div>
-  )
+  return(
+    <>
+    <NotesPage></NotesPage>
+    </>
+  );
 }
 
-export default App;
+export default App
 
