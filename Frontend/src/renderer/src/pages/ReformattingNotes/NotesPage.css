@@ -1,52 +1,47 @@
-html, body {
+html,
+body {
   font-family: Arial, sans-serif;
   margin: 0;
   background-color: #e8ffff;
   height: 1920px;
   width: 90vw;
-
 }
 
-.app_container{
+.app_container {
   background-color: transparent;
   flex-direction: column;
 
   width: 95vw;
-
 }
 
-.header{
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #d8fdfd;
   padding: 10px 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   width: 97vw;
   padding-top: 50px;
-
-
-
 }
 
-.back_button, .save_button{
+.back_button,
+.save_button {
   border: none;
   background: none;
   font-size: 16px;
   cursor: pointer;
   color: black;
-
 }
 
-.title{
+.title {
   font-size: 20px;
   margin: 0;
   text-align: center;
   flex-grow: 1;
 }
 
-
-.editor_container{
+.editor_container {
   position: relative;
   margin: 0 auto;
   padding-top: 120px;
@@ -54,7 +49,7 @@ html, body {
   overflow-y: none;
 }
 
-.editor{
+.editor {
   position: relative;
   margin: 0 auto;
   border: 1px solid #ccc;
@@ -66,56 +61,50 @@ html, body {
   height: 11in;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  overflow: hidden; 
-
+  overflow: hidden;
 }
-
 
 textarea#editor {
-  width: 100%; 
-  height: 100%; 
-  border: none; 
-  outline: none; 
-  resize: none; 
-  overflow: hidden; 
-  padding: 20px; 
-  font-family: Arial, sans-serif; 
-  font-size: 16px; 
-  line-height: 1.5; 
-  box-sizing: border-box; 
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  box-sizing: border-box;
 }
 
-
-.document{
+.document {
   background: white;
   width: 80%;
   padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   overflow-y: auto;
   height: 70%;
   margin: auto;
-
-
-
 }
 
-.toolbar-left{
+.toolbar-left {
   position: absolute;
   top: 200px;
   left: 50px;
-  display: grid; 
-  grid-template-rows: repeat(auto-fit, minmax(0px, auto)); 
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(0px, auto));
   align-items: center;
   background: #fff;
   padding: 5px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   height: 100%;
   width: 60px;
 }
 
-.toolbar-left button{
+.toolbar-left button {
   font-size: 16px;
   padding: 5px;
   border: 1px solid #ccc;
@@ -125,43 +114,43 @@ textarea#editor {
   height: 50px;
 }
 
-.toolbar-left button#red{
+.toolbar-left button#red {
   background-color: red;
 }
 
-.toolbar-left button#orange{
+.toolbar-left button#orange {
   background-color: orange;
 }
 
-.toolbar-left button#yellow{
+.toolbar-left button#yellow {
   background-color: yellow;
 }
 
-.toolbar-left button#lightgreen{
+.toolbar-left button#lightgreen {
   background-color: lightgreen;
 }
 
-.toolbar-left button#darkgreen{
+.toolbar-left button#darkgreen {
   background-color: darkgreen;
 }
 
-.toolbar-left button#lightblue{
+.toolbar-left button#lightblue {
   background-color: cyan;
 }
 
-.toolbar-left button#darkblue{
+.toolbar-left button#darkblue {
   background-color: rgb(0, 8, 255);
 }
 
-.toolbar-left button#magenta{
+.toolbar-left button#magenta {
   background-color: magenta;
 }
 
-.toolbar-left button#white{
+.toolbar-left button#white {
   background-color: white;
 }
 
-.toolbar-left button#black{
+.toolbar-left button#black {
   background-color: black;
 }
 
@@ -169,21 +158,19 @@ textarea#editor {
   position: absolute;
   top: 200px;
   right: 50px;
-  display: grid; 
+  display: grid;
   grid-template-rows: repeat(auto-fit, minmax(40px, auto)); /* Adjust row height as needed */
-  grid-gap: 5px; 
+  grid-gap: 5px;
   align-items: center;
   background: #fff;
   padding: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   height: 100%;
   width: 70px;
-
-
 }
 
-.toolbar-right button{
+.toolbar-right button {
   font-size: 16px;
   padding: 5px 10px;
   border: 1px solid #ccc;
@@ -192,11 +179,9 @@ textarea#editor {
   border-radius: 4px;
   width: 50px;
   height: 50px;
-
-
 }
 
-.toolbar hr{
+.toolbar hr {
   width: 80%;
-  border: 0.5px solid #ddd
+  border: 0.5px solid #ddd;
 }
