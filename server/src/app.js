@@ -2,8 +2,9 @@ const express = require("express");
 const userRoutes = require("./routes/user.routes");
 const noteRoutes = require("./routes/note.routes");
 const mongoose = require("mongoose");
+const env = require("dotenv").config();
 
-const MONGODB_URI = process.env.MONGO_DB;
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@inkwave.6yrch.mongodb.net/${process.env.MONGO_DEFAULT_DB}?retryWrites=true&w=majority&appName=inkwave`;
 
 const app = express();
 

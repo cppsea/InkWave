@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "start2": "node server/src/app.js",
     "server": "npx ts-node src/server/server.ts"
   },
   "repository": {
