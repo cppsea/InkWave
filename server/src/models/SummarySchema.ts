@@ -5,10 +5,10 @@ export interface SummaryInterface extends Document {
     pdf : mongoose.Types.Buffer,
 }
 
-const SummarySchema : Schema = new Schema({
+const SummarySchema : Schema<SummaryInterface> = new Schema({
     _id: Schema.Types.ObjectId,
-    image: Schema.Types.Buffer,
+    pdf: Schema.Types.Buffer,
 })
 
-const Summary = mongoose.model("Summary", SummarySchema);
+const Summary = mongoose.model<SummaryInterface>("Summary", SummarySchema);
 export default Summary;

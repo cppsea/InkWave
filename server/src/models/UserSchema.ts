@@ -9,7 +9,7 @@ export interface UserInterface extends Document {
     password : string;
 }
 
-const UserSchema : Schema = new Schema({
+const UserSchema : Schema<UserInterface> = new Schema({
     uuid : {
         type: Schema.Types.UUID,
         unique: true,
@@ -40,5 +40,5 @@ const UserSchema : Schema = new Schema({
     },
 });
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model<UserInterface>("User", UserSchema);
 export default User;

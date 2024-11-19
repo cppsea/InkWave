@@ -10,7 +10,7 @@ export interface NoteInterface extends Document {
     lastUpdated : Date,
 }
 
-const NoteSchema : Schema = new Schema({
+const NoteSchema : Schema<NoteInterface> = new Schema({
     _id: Schema.Types.ObjectId,
     name: {
         type: String,
@@ -31,5 +31,5 @@ const NoteSchema : Schema = new Schema({
     },
 });
 
-const Note = mongoose.model("Note", NoteSchema);
+const Note = mongoose.model<NoteInterface>("Note", NoteSchema);
 export default Note;
