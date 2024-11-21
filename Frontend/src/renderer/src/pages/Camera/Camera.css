@@ -1,0 +1,124 @@
+.camera-page {
+    position: absolute;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.camera-page__resizable-box {
+    position: absolute;
+    width: 100%;
+    max-height: 100%;
+    min-width: 500px;
+    min-height: 437.5px;
+    aspect-ratio: 16/14;
+}
+
+.camera-page__home-button {
+    position: absolute;
+    background-color: white;
+    border-radius: 6px;
+    top: 20px;
+    left: 10px;
+}
+
+.camera-page__resizable-box__video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleX(-1);
+    width: 100%;
+    max-height: 100%;
+    aspect-ratio: 16/14;
+}
+
+.camera-page__resizable-box__bottom {
+    position: absolute;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 0%; 
+    height: 80px;
+    width: 100%;
+}
+
+.camera-page__resizable-box__bottom__capture-button {
+    position: relative;
+    height: 50px;
+    width: 50px;
+    border-radius: 100px;
+}
+
+.camera-page__preview {
+    display: none;
+}
+
+.camera-page__preview--display {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F5FFFD;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+}
+
+.camera-page__preview__container {
+    position: absolute;
+    width: 0px;
+}
+
+.camera-page__preview__container__buttons {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.camera-page__preview__container__buttons__retake {
+    position: relative;
+    background-color: #b3b3b3;
+    height: 55px; 
+    width: 170px;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.camera-page__preview__container__buttons__next-photo {
+    position: relative;
+    background-color: #b3b3b3;
+    height: 55px; 
+    width: 170px;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.camera-page__preview__container__buttons__generate-notes {
+    position: relative;
+    background-color: #b3b3b3;
+    height: 55px; 
+    width: 170px;
+    border-radius: 20px;
+    margin-left: 10px;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.camera-page__preview__container__photo {
+    position: relative;
+    border: 2px solid black;
+    transform: translate(-50%) scaleX(-1);
+    left: 50%;
+}

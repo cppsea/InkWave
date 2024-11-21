@@ -1,8 +1,10 @@
+import Camera from "./pages/Camera/Camera";
+
 function App() {
 
   return (
     <div>
-      Hello World
+      <Camera/>
     </div>
   )
 }

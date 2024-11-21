@@ -1,0 +1,133 @@
+import {useEffect, useRef, useState} from 'react';
+import './Camera.css';
+
+const Camera = () => {
+    const videoDisplayRef = useRef(null);
+    const canvasRef = useRef(null);
+    const bottomRef = useRef(null);
+    const [displayVideo, setDisplayVideo] = useState(true);
+    const [clearCanvas, setClearCanvas] = useState(false);
+    const [takenPhotos, setTakenPhotos] = useState([]);
+    const [currentStream, setCurrentStream] = useState(null);
+
+    const handleClickCapturePhoto = () => {
+        const context = canvasRef.current.getContext("2d");
+        setDisplayVideo(false);
+        canvasRef.current.width = videoDisplayRef.current.videoWidth;
+        canvasRef.current.height = videoDisplayRef.current.videoHeight;
+
+        // captures what is showing on the camera and display on canvas tag
+        context.drawImage(videoDisplayRef.current, 0, 0, videoDisplayRef.current.videoWidth, videoDisplayRef.current.videoHeight);
+        
+        // deactivates desktop camera
+        currentStream.getTracks().forEach(track => track.stop());
+        videoDisplayRef.current.srcObject = null;
+    }
+
+    // activates desktop camera
+    const handleGetCameraView = () => {
+        navigator.mediaDevices.getUserMedia({video: true, audio: false})
+        .then((cameraStream) => {
+            videoDisplayRef.current.srcObject = cameraStream;
+            videoDisplayRef.current.play();
+            setCurrentStream(cameraStream);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    const handleClickRetakePhoto = () => {
+        setDisplayVideo(true);
+        setClearCanvas(true);
+    }
+
+    const handleClickTakeNextPhoto = () => {
+        setDisplayVideo(true);
+        setClearCanvas(true);
+        const newPhoto = canvasRef.current.toDataURL("image/jpg", 1);
+
+        // adds new photo to selection of photos taken
+        setTakenPhotos(prevPhotos => [...prevPhotos, newPhoto]);
+    }
+
+    const handleClickHomeButton = () => {
+        setTakenPhotos([]);
+    }
+
+    // clears the canvas
+    useEffect(() => {
+        if (clearCanvas) {
+            const context = canvasRef.current.getContext("2d");
+            context.clearRect(0, 0, videoDisplayRef.current.videoWidth, videoDisplayRef.current.videoHeight);
+            setClearCanvas(false);
+        }
+    }, [clearCanvas])
+
+    useEffect(() => {
+        if (videoDisplayRef.current) {
+            handleGetCameraView();
+        }
+    }, [videoDisplayRef, displayVideo])
+
+    useEffect(() => {
+        console.log("array", takenPhotos);
+    }, [takenPhotos])
+
+    return (  
+        <div className="camera-page">
+            <div className={displayVideo ? "camera-page__preview" : "camera-page__preview camera-page__preview--display"}>
+                <div className="camera-page__preview__container">
+                    <canvas 
+                        className="camera-page__preview__container__photo"
+                        ref={canvasRef}
+                    />
+                    <div className="camera-page__preview__container__buttons">
+                        <button
+                            className="camera-page__preview__container__buttons__retake"    
+                            onClick={handleClickRetakePhoto}
+                        >
+                            Retake
+                        </button>
+                        {(takenPhotos.length < 3) && 
+                        <button
+                            className="camera-page__preview__container__buttons__next-photo"    
+                            onClick={handleClickTakeNextPhoto}
+                        >
+                            Next Photo
+                        </button>
+                        }
+                        <button className="camera-page__preview__container__buttons__generate-notes">
+                            Generate Notes
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button 
+                className="camera-page__home-button"
+                onClick={handleClickHomeButton}
+            >
+                {"< Home"}
+            </button>
+             {displayVideo && ( 
+                <div className="camera-page__resizable-box">
+                    <video
+                        className="camera-page__resizable-box__video"
+                        ref={videoDisplayRef}
+                    />
+                    <div 
+                        className="camera-page__resizable-box__bottom"
+                        ref={bottomRef}
+                    >
+                        <button
+                            className="camera-page__resizable-box__bottom__capture-button"
+                            onClick={handleClickCapturePhoto}
+                        />
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+ 
+export default Camera;
