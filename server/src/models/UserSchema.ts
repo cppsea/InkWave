@@ -9,7 +9,7 @@ export interface UserInterface extends Document {
     password : string;
 }
 
-const UserSchema : Schema<UserInterface> = new Schema({
+const UserSchema : Schema = new Schema<UserInterface>({
     uuid : {
         type: Schema.Types.UUID,
         unique: true,

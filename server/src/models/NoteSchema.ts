@@ -10,7 +10,7 @@ export interface NoteInterface extends Document {
     lastUpdated : Date,
 }
 
-const NoteSchema : Schema<NoteInterface> = new Schema({
+const NoteSchema : Schema = new Schema<NoteInterface>({
     _id: Schema.Types.ObjectId,
     name: {
         type: String,

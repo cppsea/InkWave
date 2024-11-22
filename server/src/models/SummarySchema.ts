@@ -5,7 +5,7 @@ export interface SummaryInterface extends Document {
     pdf : mongoose.Types.Buffer,
 }
 
-const SummarySchema : Schema<SummaryInterface> = new Schema({
+const SummarySchema : Schema = new Schema<SummaryInterface>({
     _id: Schema.Types.ObjectId,
     pdf: Schema.Types.Buffer,
 })

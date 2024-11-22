@@ -5,7 +5,7 @@ export interface ImageInterface extends Document {
     image : mongoose.Types.Buffer,
 }
 
-const ImageSchema : Schema<ImageInterface> = new Schema({
+const ImageSchema : Schema<ImageInterface> = new Schema<ImageInterface>({
     _id: Schema.Types.ObjectId,
     image: Schema.Types.Buffer,
 });
