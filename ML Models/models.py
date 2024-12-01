@@ -10,11 +10,12 @@ def cv_model(img_path):
     ocr = PaddleOCR(use_angle_cls=True, lang='en', rec_model_dir=f'{local_model_dir}/rec') 
     result = ocr.ocr(img_path, cls=True)
 
-
-    for idx in range(len(result)):
-        res = result[idx]
-        for line in res:
-            print(line)
+    if result[0] == None:
+        raise ValueError("No text found.")
+    # for idx in range(len(result)):
+    #     res = result[idx]
+    #     for line in res:
+    #         print(line)
             
     # Iterate over each result to print or write to a file
     with open('./cv_output.txt', 'w') as file:
@@ -51,7 +52,7 @@ def llm_model(document_path):
     except FileNotFoundError:
         raise FileNotFoundError("File not found for LLM. Please check the file name or path.")
     
-    prompt = "Fix the spelling and grammar errors of the preceding document and reformat the document so that it displays the text in its intended format. Print only the result without any additional text or responses."
+    prompt = "Fix the spelling and grammar errors of the preceding document and reformat the document so that it displays the text in its intended format without adding new information, only fixing text that is already there. Print only the result without any additional text or responses."
     messages = [
                 {"role": "system", "content": input_file},
                 {"role": "user", "content": prompt},
@@ -70,27 +71,36 @@ def llm_model(document_path):
         Write changes to output file.
         """
     output_file = "llm_output.txt"
-    try:
-        with open(output_file, "w") as file:
-            file.write(content)
-    except IOError:  # unable to open file
-        raise IOError("Unable to write to the LLM output file.")
+    with open(output_file, "w") as file:
+        file.write(content)
     
     return 'llm_output.txt'
 
 
 
 from NLPModel_4 import NLPProcessor
-def nlp_model(document_path):
+def nlp_model_md(document_path):
     processor = NLPProcessor()
     LLM_to_NLP = processor.read_file(document_path)
     processor.nlp_format(LLM_to_NLP)
-    return 'nlp_output.pdf'
+    return 'nlp_output.md', processor
+
+def nlp_model_pdf(document_path, processor):
+    processor.to_pdf(document_path)
 
 
 
 # test models in flow state
 
-cv_model('notes.jpg')
+#cv_model('notes.png')
+#llm_model('cv_output.txt')
+#output, processor = nlp_model_md('llm_output.txt')
+# nlp_model_pdf(output, processor)
+
+# cv_model('blank.jpg')
+
+
+# cv_model('digital.png')
 # llm_model('cv_output.txt')
-# nlp_model('llm_output.txt')
+output, processor = nlp_model_md('llm_output.txt')
+nlp_model_pdf(output, processor)

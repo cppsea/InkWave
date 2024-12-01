@@ -170,9 +170,10 @@ class NLPProcessor:
 
         highlighted_text = NLPProcessor.highlight_keywords(transformed_text)
         
-        output_path = "nlp_output.html"
+        output_path = "nlp_output.md"
         NLPProcessor.bullet_points_formatting(output_path)
-        
+    @staticmethod
+    def to_pdf(output_path):
         path = os.path.abspath(output_path)
         pdf_output_path = 'nlp_output.pdf'
         converter.convert(f'file:///{path}', pdf_output_path)
