@@ -122,3 +122,16 @@
     transform: translate(-50%) scaleX(-1);
     left: 50%;
 }
+
+.camera-page__preview__container__buttons__resume {
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 55px; 
+    width: 140px;
+    border-radius: 20px;
+    font-size: 20px;
+}

@@ -9,6 +9,7 @@ const Camera = () => {
     const [clearCanvas, setClearCanvas] = useState(false);
     const [takenPhotos, setTakenPhotos] = useState([]);
     const [currentStream, setCurrentStream] = useState(null);
+    const [displayResumeButton, setDisplayResumeButton] = useState(false);
 
     const handleClickCapturePhoto = () => {
         const context = canvasRef.current.getContext("2d");
@@ -22,10 +23,12 @@ const Camera = () => {
         // deactivates desktop camera
         currentStream.getTracks().forEach(track => track.stop());
         videoDisplayRef.current.srcObject = null;
+        setCurrentStream(null);
     }
 
     // activates desktop camera
     const handleGetCameraView = () => {
+        setDisplayResumeButton(false);
         navigator.mediaDevices.getUserMedia({video: true, audio: false})
         .then((cameraStream) => {
             videoDisplayRef.current.srcObject = cameraStream;
@@ -34,6 +37,7 @@ const Camera = () => {
         })
         .catch((error) => {
             console.log(error);
+            setDisplayResumeButton(true);
         })
     }
 
@@ -45,10 +49,11 @@ const Camera = () => {
     const handleClickTakeNextPhoto = () => {
         setDisplayVideo(true);
         setClearCanvas(true);
-        const newPhoto = canvasRef.current.toDataURL("image/jpg", 1);
 
         // adds new photo to selection of photos taken
-        setTakenPhotos(prevPhotos => [...prevPhotos, newPhoto]);
+        canvasRef.current.toBlob((newPhoto) => {
+            setTakenPhotos(prevPhotos => [...prevPhotos, newPhoto]);
+        }, "image/jpeg", 1);
     }
 
     const handleClickHomeButton = () => {
@@ -74,6 +79,15 @@ const Camera = () => {
         console.log("array", takenPhotos);
     }, [takenPhotos])
 
+    useEffect(() => {
+        if (displayVideo && (currentStream === null)) {
+            handleGetCameraView();
+        }
+        else {
+            setDisplayResumeButton(false);
+        }
+    }, [currentStream])
+
     return (  
         <div className="camera-page">
             <div className={displayVideo ? "camera-page__preview" : "camera-page__preview camera-page__preview--display"}>
@@ -89,7 +103,7 @@ const Camera = () => {
                         >
                             Retake
                         </button>
-                        {(takenPhotos.length < 3) && 
+                        {(takenPhotos.length < 2) && 
                         <button
                             className="camera-page__preview__container__buttons__next-photo"    
                             onClick={handleClickTakeNextPhoto}
@@ -103,12 +117,6 @@ const Camera = () => {
                     </div>
                 </div>
             </div>
-            <button 
-                className="camera-page__home-button"
-                onClick={handleClickHomeButton}
-            >
-                {"< Home"}
-            </button>
              {displayVideo && ( 
                 <div className="camera-page__resizable-box">
                     <video
@@ -119,13 +127,29 @@ const Camera = () => {
                         className="camera-page__resizable-box__bottom"
                         ref={bottomRef}
                     >
+                    {(currentStream !== null) &&
                         <button
                             className="camera-page__resizable-box__bottom__capture-button"
                             onClick={handleClickCapturePhoto}
                         />
+                    }
                     </div>
+                    {(displayResumeButton) && (
+                        <button
+                            className="camera-page__preview__container__buttons__resume"
+                            onClick={handleGetCameraView}
+                        >
+                            Resume
+                        </button>
+                    )}
                 </div>
             )}
+            <button 
+                className="camera-page__home-button"
+                onClick={handleClickHomeButton}
+            >
+                {"< Home"}
+            </button>
         </div>
     );
 }
