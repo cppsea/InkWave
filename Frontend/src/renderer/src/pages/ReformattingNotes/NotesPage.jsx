@@ -8,12 +8,13 @@ const NotesPage = () => {
 
   const handleContentChange = (pageIndex, event) => {
     const updatedPages = [...pages]
-    updatedPages[pageIndex] = event.target.value
+    updatedPages[pageIndex] = editorRef.current[pageIndex].innerHTML
 
     const editor = editorRef.current[pageIndex]
     const contentHeight = editor.scrollHeight
     const editorHeight = editor.clientHeight
     const threshold = editorHeight * 0.9
+
     for (let i = 0; i < pages.length; i++) {
       const currentEditor = editorRef.current[i]
       const currentContentHeight = currentEditor.scrollHeight
@@ -29,36 +30,35 @@ const NotesPage = () => {
 
   //works for italic/undelrine
   const applyFormatting = (command) => {
-    document.execCommand(command, false, null)
-  }
-
-  //bolding wasnt working because of fontweight
-  const applyBold = () => {
-    const selection = window.getSelection()
-    if (!selection.rangeCount) return
-    const range = selection.getRangeAt(0)
-    const span = document.createElement('span')
-
-    // looking to see if it is already bold or not (it seems to be bolded)
-    if (selection.anchorNode.parentNode.style.fontWeight === 'bold') {
-      span.style.fontWeight = 'normal'
+    if (command === 'bold') {
+      document.execCommand('styleWithCSS', false, true)
+      document.execCommand('bold', false, null)
     } else {
-      span.style.fontWeight = 'bold'
+      document.execCommand(command, false, null)
     }
-
-    range.surroundContents(span)
   }
 
   const handleSave = () => {
-    console.log('Saved content:', pages)
+    const updatedPages = editorRef.current.map((editor) => editor?.innerHTML || '')
+    setPages(updatedPages)
+
+    //(used to see it being saved in console)
+    console.log('Saved content:', updatedPages)
   }
+
+  ;<div className="preview">
+    <h3>Saved Content:</h3>
+    {pages.map((content, index) => (
+      <div key={index} dangerouslySetInnerHTML={{ __html: content }} />
+    ))}
+  </div>
 
   return (
     <div className="app_container">
       <header className="header">
         <button className="back_button"> ← Dashboard</button>
         <h1 className="title"> Untitled</h1>
-        <button className="save_button">
+        <button className="save_button" onClick={handleSave}>
           <i class="fas fa-save"></i> save
         </button>
       </header>
@@ -70,10 +70,10 @@ const NotesPage = () => {
               <div
                 id="editor"
                 ref={(el) => (editorRef.current[index] = el)}
-                value={content}
-                onChange={(event) => handleContentChange(index, event)}
-                className="editor_textarea"
                 contentEditable="true"
+                value={content}
+                onInput={(event) => handleContentChange(index, event)}
+                className="editor_textarea"
               />
             </div>
           ))}
@@ -94,7 +94,7 @@ const NotesPage = () => {
 
         <div className="toolbar toolbar-right">
           <button>12</button>
-          <button onClick={applyBold}>
+          <button onClick={() => applyFormatting('bold')}>
             <b>B</b>
           </button>
           <button onClick={() => applyFormatting('italic')}>

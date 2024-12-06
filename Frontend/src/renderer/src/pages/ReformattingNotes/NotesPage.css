@@ -5,6 +5,7 @@ body {
   background-color: #e8ffff;
   height: 1920px;
   width: 90vw;
+  font-weight: normal;
 }
 
 .app_container {
@@ -62,6 +63,11 @@ body {
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  font-weight: normal;
+}
+
+.editor_textarea {
+  font-weight: normal !important;
 }
 
 textarea#editor {
@@ -76,6 +82,7 @@ textarea#editor {
   font-size: 16px;
   line-height: 1.5;
   box-sizing: border-box;
+  font-weight: normal;
 }
 
 .document {
@@ -112,6 +119,7 @@ textarea#editor {
   cursor: pointer;
   width: 50px;
   height: 50px;
+  font-weight: normal;
 }
 
 .toolbar-left button#red {
