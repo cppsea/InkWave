@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "start2": "node server/src/app.js",
-    "server": "npx ts-node src/server/server.ts"
+    "server": "npx ts-node src/server/index.ts"
   },
   "repository": {
     "type": "git",
@@ -19,12 +19,15 @@
   },
   "homepage": "https://github.com/cppsea/InkWave#readme",
   "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
     "electron": "^33.2.0"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "mongodb": "^6.10.0",
-    "mongoose": "^8.8.1"
+    "mongoose": "^8.8.1",
+    "typescript": "^5.7.2"
   }
 }
