@@ -16,4 +16,4 @@ const forgotPassword = async (req: Request, res: Response) => {
   // ** TO DO ** //
 };
 
-export default { login, register, forgotPassword };
+export { login, register, forgotPassword };

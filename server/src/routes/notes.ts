@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
+import * as notesController from "../controllers/notes";
 
 const router = express.Router();
-const notesController = require("../controllers/notes.ts");
 
 /**
  * Retrieves all notes for a user
@@ -23,13 +23,13 @@ router.post("/summary", notesController.getSummary);
 
 /**
  * Handles saving a note to the database (editing purposes)
- * @route PUT /api/notes/save/:id
+ * @route PUT /api/notes/save/:noteID
  */
 router.put("/save/:noteID", notesController.saveNote);
 
 /**
  * Handles deleting a note from the database
- * @route DELETE /api/notes/delete/:id
+ * @route DELETE /api/notes/delete/:noteID
  */
 router.delete("/delete/:noteID", notesController.deleteNote);
 

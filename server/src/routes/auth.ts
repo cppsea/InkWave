@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
+import * as authController from "../controllers/auth.ts";
 
 const router = express.Router();
-const authController = require("../controllers/auth.ts");
 
 /**
  * Handles user login and authentication

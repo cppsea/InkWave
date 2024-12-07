@@ -26,4 +26,4 @@ const deleteNote = async (req: Request, res: Response) => {
   // ** TO DO ** //
 };
 
-export default { getAllNotes, getNote, getSummary, saveNote, deleteNote };
+export { getAllNotes, getNote, getSummary, saveNote, deleteNote };
