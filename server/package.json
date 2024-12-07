@@ -2,11 +2,11 @@
   "name": "inkwave",
   "version": "1.0.0",
   "description": "converts handwritten notes into digital text",
-  "main": "main.js",
+  "main": "server.ts",
+  "type": "module",
   "scripts": {
     "start": "electron .",
-    "start2": "node server/src/app.js",
-    "server": "npx ts-node src/server/index.ts"
+    "server": "npx ts-node server/src/server.ts"
   },
   "repository": {
     "type": "git",
@@ -21,13 +21,14 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.1",
-    "electron": "^33.2.0"
+    "electron": "^33.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.2",
     "mongodb": "^6.10.0",
-    "mongoose": "^8.8.1",
-    "typescript": "^5.7.2"
+    "mongoose": "^8.8.1"
   }
 }
