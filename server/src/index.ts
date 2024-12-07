@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 // Routes
-app.use("/api/user", notesRouter);
-app.use("/api/notes", usersRouter);
+app.use("/api/notes", notesRouter);
+app.use("/api/users", usersRouter);
 
 export default app;
