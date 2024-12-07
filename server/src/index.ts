@@ -1,8 +1,8 @@
 // index.ts
 import express from "express";
 
-import notesRouter from "./routes/noteRoutes";
-import userRouter from "./routes/userRoutes";
+import notesRouter from "./routes/notes.ts";
+import userRouter from "./routes/users.ts";
 
 const app = express();
 
