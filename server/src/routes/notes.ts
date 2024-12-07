@@ -13,9 +13,9 @@ router.get("/:id", async (req: Request, res: Response) => {
 
 /**
  * Retrieves a specific note for a user
- * @route GET /api/notes/:id/:noteId
+ * @route GET /api/notes/:id/:noteID
  */
-router.get("/:id/:noteId", async (req: Request, res: Response) => {
+router.get("/:id/:noteID", async (req: Request, res: Response) => {
   res.send("GET request to the homepage");
   // ** TO DO ** //
 });
