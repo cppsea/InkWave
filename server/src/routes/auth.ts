@@ -24,7 +24,7 @@ router.post("/register", async (req: Request, res: Response) => {
  * Handles forgot password
  * @route POST /api/auth/forgot-password
  */
-router.post("/forgot", async (req: Request, res: Response) => {
+router.post("/forgot-password", async (req: Request, res: Response) => {
   res.send("POST request to the homepage");
   // ** TO DO ** //
 });
