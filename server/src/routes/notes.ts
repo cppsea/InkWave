@@ -4,18 +4,18 @@ const router = express.Router();
 
 /**
  * Retrieves all notes for a user
- * @route GET /api/notes/:id
+ * @route GET /api/notes/:userID
  */
-router.get("/:id", async (req: Request, res: Response) => {
+router.get("/:userID", async (req: Request, res: Response) => {
   res.send("GET request to the homepage");
   // ** TO DO ** //
 });
 
 /**
  * Retrieves a specific note for a user
- * @route GET /api/notes/:id/:noteID
+ * @route GET /api/notes/:userID/:noteID
  */
-router.get("/:id/:noteID", async (req: Request, res: Response) => {
+router.get("/:userID/:noteID", async (req: Request, res: Response) => {
   res.send("GET request to the homepage");
   // ** TO DO ** //
 });
@@ -33,7 +33,7 @@ router.post("/summary", async (req: Request, res: Response) => {
  * Handles saving a note to the database (editing purposes)
  * @route PUT /api/notes/save/:id
  */
-router.put("/save/:id", async (req: Request, res: Response) => {
+router.put("/save/:noteID", async (req: Request, res: Response) => {
   res.send("PUT request to the homepage");
   // ** TO DO ** //
 });
@@ -42,7 +42,7 @@ router.put("/save/:id", async (req: Request, res: Response) => {
  * Handles deleting a note from the database
  * @route DELETE /api/notes/delete/:id
  */
-router.delete("/delete/:id", async (req: Request, res: Response) => {
+router.delete("/delete/:noteID", async (req: Request, res: Response) => {
   res.send("DELETE request to the homepage");
   // ** TO DO ** //
 });
