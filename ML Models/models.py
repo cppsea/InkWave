@@ -18,7 +18,7 @@ def cv_model(img_path):
     #         print(line)
             
     # Iterate over each result to print or write to a file
-    with open('./cv_output.txt', 'w') as file:
+    with open('./cv_output.txt', 'w', encoding='utf-8') as file:
         for entry in result:  # Each entry is a list of results for a line
             for bbox, (text, score) in entry:  # Unpack the bounding box and text details
                 print(text)  # Print text to the console
@@ -71,7 +71,7 @@ def llm_model(document_path):
         Write changes to output file.
         """
     output_file = "llm_output.txt"
-    with open(output_file, "w") as file:
+    with open(output_file, "w", encoding='utf-8') as file:
         file.write(content)
     
     return 'llm_output.txt'
@@ -92,9 +92,9 @@ def nlp_model_pdf(document_path, processor):
 
 # test models in flow state
 
-#cv_model('notes.png')
-#llm_model('cv_output.txt')
-#output, processor = nlp_model_md('llm_output.txt')
+cv_model('notes.jpg')
+llm_model('cv_output.txt')
+output, processor = nlp_model_md('llm_output.txt')
 # nlp_model_pdf(output, processor)
 
 # cv_model('blank.jpg')
@@ -102,5 +102,5 @@ def nlp_model_pdf(document_path, processor):
 
 # cv_model('digital.png')
 # llm_model('cv_output.txt')
-output, processor = nlp_model_md('llm_output.txt')
-nlp_model_pdf(output, processor)
+# output, processor = nlp_model_md('llm_output.txt')
+# nlp_model_pdf(output, processor)
