@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "converts handwritten notes into digital text",
   "main": "server.ts",
-  "type": "module",
   "scripts": {
     "start": "electron .",
-    "server": "npx ts-node server/src/server.ts"
+    "server": "npx ts-node src/server.ts"
   },
   "repository": {
     "type": "git",
