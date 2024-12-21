@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import './Camera.css';
-import Photo from './Photo';
+import Photo from './Photo/Photo';
 import RetakePhotoButton from './RetakeButton/RetakePhotoButton';
 import NextPhotoButton from './NextPhotoButton/NextPhotoButton';
 import PreviewNextPhotoButton from './PreviewNextPhotoButton/PreviewNextPhotoButton';
@@ -19,7 +19,6 @@ const Camera = () => {
     const [currentStream, setCurrentStream] = useState(null);
     const [displayResumeButton, setDisplayResumeButton] = useState(false);
     const [clickedCaptureButton, setClickedCaptureButton] = useState(false);
-    const [showPreview, setShowPreview] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [clickedRetakeButton, setClickedRetakeButton] = useState(false);
 
@@ -56,15 +55,6 @@ const Camera = () => {
             setDisplayResumeButton(false);
         }
     }, [currentStream])
-
-    const handleClickTestPreview = () => {
-        setShowPreview(true);
-        console.log("running");
-    }
-
-    const handleClickReturnToCamera = () => {
-        setShowPreview(false);
-    }
  
     return (  
         <div className="camera-page">

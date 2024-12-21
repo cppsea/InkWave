@@ -1,8 +1,8 @@
-const CapturePhotoButton = () => {
+const CapturePhotoButton = ({tempCanvas, setDisplayVideo, setClickedCaptureButton, photosContainerRef, videoDisplayRef, 
+                            clickedRetakeButton, setClickedRetakeButton, takenPhotos, setTakenPhotos, currentIndex, 
+                            setCurrentIndex, currentStream, setCurrentStream}) => {
 
-    const handleClickCapturePhoto = ({tempCanvas, setDisplayVideo, setClickedCaptureButton, photosContainerRef, videoDisplayRef, 
-                                    clickedRetakeButton, setClickedRetakeButton, takenPhotos, setTakenPhotos, currentIndex, 
-                                    setCurrentIndex, currentStream, setCurrentStream}) => {
+    const handleClickCapturePhoto = () => {
         const context = tempCanvas.getContext("2d");
 
         setDisplayVideo(false);
