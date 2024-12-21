@@ -93,29 +93,6 @@
     flex-shrink: 0;
 }
 
-.camera-page__preview__container__buttons__next-photo {
-    position: relative;
-    background-color: #b3b3b3;
-    height: 55px; 
-    width: 170px;
-    border-radius: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-size: 20px;
-    flex-shrink: 0;
-}
-
-.camera-page__preview__container__buttons__generate-notes {
-    position: relative;
-    background-color: #b3b3b3;
-    height: 55px; 
-    width: 170px;
-    border-radius: 20px;
-    margin-left: 10px;
-    font-size: 20px;
-    flex-shrink: 0;
-}
-
 .camera-page__preview__container__photos-array {
     position: relative;
     left: 50%;
@@ -134,21 +111,6 @@
     border-radius: 20px;
     font-size: 20px;
 }
-
-.camera-page__preview__container__next-button {
-    position: absolute;
-    font-size: 40px;
-    border-radius: 50px;
-    right: 20px;
-}
-
-.camera-page__preview__container__previous-button {
-    position: absolute;
-    font-size: 40px;
-    border-radius: 50px;    
-    left: 20px;
-}
-
 
 /* .test-priority-one {
     z-index: 3;
