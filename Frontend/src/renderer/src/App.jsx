@@ -5,7 +5,7 @@ import Camera from './pages/Camera/Camera'
 function App() {
   return (
     <div>
-      <NotesPage></NotesPage>
+      {/* <NotesPage></NotesPage> */}
       <Camera />
     </div>
   )

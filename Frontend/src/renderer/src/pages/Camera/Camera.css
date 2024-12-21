@@ -116,11 +116,10 @@
     flex-shrink: 0;
 }
 
-.camera-page__preview__container__photo {
+.camera-page__preview__container__photos-array {
     position: relative;
-    border: 2px solid black;
-    transform: translate(-50%) scaleX(-1);
     left: 50%;
+    transform: translate(-50%);
 }
 
 .camera-page__preview__container__buttons__resume {
@@ -134,4 +133,34 @@
     width: 140px;
     border-radius: 20px;
     font-size: 20px;
+}
+
+.camera-page__preview__container__next-button {
+    position: absolute;
+    font-size: 40px;
+    border-radius: 50px;
+    right: 20px;
+}
+
+.camera-page__preview__container__previous-button {
+    position: absolute;
+    font-size: 40px;
+    border-radius: 50px;    
+    left: 20px;
+}
+
+
+/* .test-priority-one {
+    z-index: 3;
+}
+
+.test-priority-two {
+    z-index: 4;
+} */
+
+.test {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: black;
 }

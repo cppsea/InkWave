@@ -1,28 +1,69 @@
 import {useEffect, useRef, useState} from 'react';
 import './Camera.css';
+import Photo from './Photo';
 
 const Camera = () => {
     const videoDisplayRef = useRef(null);
-    const canvasRef = useRef(null);
+    const tempCanvas = document.createElement("canvas");
     const bottomRef = useRef(null);
+    const photosContainerRef = useRef(null);
     const [displayVideo, setDisplayVideo] = useState(true);
-    const [clearCanvas, setClearCanvas] = useState(false);
     const [takenPhotos, setTakenPhotos] = useState([]);
     const [currentStream, setCurrentStream] = useState(null);
     const [displayResumeButton, setDisplayResumeButton] = useState(false);
+    const [clickedCaptureButton, setClickedCaptureButton] = useState(false);
+    const [showPreview, setShowPreview] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(-1);
+    const [clickedRetakeButton, setClickedRetakeButton] = useState(false);
+      
 
     const handleClickCapturePhoto = () => {
-        const context = canvasRef.current.getContext("2d");
+        const context = tempCanvas.getContext("2d");
+
         setDisplayVideo(false);
-        canvasRef.current.width = videoDisplayRef.current.videoWidth;
-        canvasRef.current.height = videoDisplayRef.current.videoHeight;
+        setClickedCaptureButton(true);
+
+        // sets height and weight of photo
+        tempCanvas.width = videoDisplayRef.current.videoWidth;
+        tempCanvas.height = videoDisplayRef.current.videoHeight;
+        photosContainerRef.current.style.width = `${videoDisplayRef.current.videoWidth}px`;
+        photosContainerRef.current.style.height = `${videoDisplayRef.current.videoHeight}px`;
+
+        // clears canvas to ensure there are no previous photos on the canvas
+        context.clearRect(0, 0, videoDisplayRef.current.videoWidth, videoDisplayRef.current.videoHeight);
 
         // captures what is showing on the camera and display on canvas tag
         context.drawImage(videoDisplayRef.current, 0, 0, videoDisplayRef.current.videoWidth, videoDisplayRef.current.videoHeight);
         
+        if (clickedRetakeButton) {
+            setClickedRetakeButton(false);
+            // saves image as a jpeg and replaces element at the value of the currentIndex
+            tempCanvas.toBlob((newPhoto) => {
+                const photoUrl = URL.createObjectURL(newPhoto)
+                const newPhotosArray = [...takenPhotos];
+                newPhotosArray[currentIndex] = photoUrl;
+                setTakenPhotos(newPhotosArray);
+            }, "image/jpeg", 1);
+        }
+        else {
+            // saves the image as a jpeg and appends to end of takenPhotos array
+            tempCanvas.toBlob((newPhoto) => {
+                const photoUrl = URL.createObjectURL(newPhoto)
+                setTakenPhotos(prevPhotos => [...prevPhotos, photoUrl]);
+            }, "image/jpeg", 1);
+            setCurrentIndex(prevValue => prevValue + 1);
+        }
+
+        // clears canvas again to ensure there is no image on the canvas after storing the blob in the useState array
+        context.clearRect(0, 0, videoDisplayRef.current.videoWidth, videoDisplayRef.current.videoHeight);
+
         // deactivates desktop camera
-        currentStream.getTracks().forEach(track => track.stop());
-        videoDisplayRef.current.srcObject = null;
+        // currentStream.getTracks().forEach(track => track.stop());
+        currentStream.getVideoTracks()[0].stop();
+
+        // setTimeout(() => {
+            videoDisplayRef.current.srcObject = null;
+        // }, 500)
         setCurrentStream(null);
     }
 
@@ -43,34 +84,31 @@ const Camera = () => {
 
     const handleClickRetakePhoto = () => {
         setDisplayVideo(true);
-        setClearCanvas(true);
+        // URL.revokeObjectURL(takenPhotos[takenPhotos.length - 1]);
+        // setTakenPhotos((prevImages) => prevImages.slice(0, prevImages.length - 1));  
+        URL.revokeObjectURL(takenPhotos[currentIndex]);
+        setClickedRetakeButton(true);
     }
 
     const handleClickTakeNextPhoto = () => {
         setDisplayVideo(true);
-        setClearCanvas(true);
-
-        // adds new photo to selection of photos taken
-        canvasRef.current.toBlob((newPhoto) => {
-            setTakenPhotos(prevPhotos => [...prevPhotos, newPhoto]);
-        }, "image/jpeg", 1);
+        setCurrentIndex(takenPhotos.length - 1);
     }
 
     const handleClickHomeButton = () => {
         setTakenPhotos([]);
     }
 
-    // clears the canvas
-    useEffect(() => {
-        if (clearCanvas) {
-            const context = canvasRef.current.getContext("2d");
-            context.clearRect(0, 0, videoDisplayRef.current.videoWidth, videoDisplayRef.current.videoHeight);
-            setClearCanvas(false);
-        }
-    }, [clearCanvas])
+    const handleClickNextButton = () => {
+        setCurrentIndex(prevValue => prevValue + 1);
+    }
+
+    const handleClickPreviousButton = () => {
+        setCurrentIndex(prevValue => prevValue - 1);
+    }
 
     useEffect(() => {
-        if (videoDisplayRef.current) {
+        if (videoDisplayRef.current && displayVideo) {
             handleGetCameraView();
         }
     }, [videoDisplayRef, displayVideo])
@@ -88,14 +126,50 @@ const Camera = () => {
         }
     }, [currentStream])
 
+    const handleClickTestPreview = () => {
+        setShowPreview(true);
+        console.log("running");
+    }
+
+    const handleClickReturnToCamera = () => {
+        setShowPreview(false);
+    }
+ 
     return (  
         <div className="camera-page">
             <div className={displayVideo ? "camera-page__preview" : "camera-page__preview camera-page__preview--display"}>
+                {((takenPhotos.length !== 0) && (currentIndex < (takenPhotos.length - 1))) && (
+                    <button
+                        className="camera-page__preview__container__next-button"
+                        onClick={handleClickNextButton}
+                    >
+                        {">"}
+                    </button>
+                )}
+
+                {((takenPhotos.length !== 0) && (currentIndex != 0)) && (
+                    <button
+                        className="camera-page__preview__container__previous-button"
+                        onClick={handleClickPreviousButton}
+                    >
+                        {"<"}
+                    </button>
+                )}
+
                 <div className="camera-page__preview__container">
-                    <canvas 
-                        className="camera-page__preview__container__photo"
-                        ref={canvasRef}
-                    />
+                    <div 
+                        className="camera-page__preview__container__photos-array"
+                        ref={photosContainerRef}
+                    >
+                        {takenPhotos.map((photo, index) => (
+                            <Photo
+                                key={index}
+                                index={index}
+                                imageUrl={photo}
+                                currentIndex={currentIndex}
+                            />
+                        ))}
+                    </div>
                     <div className="camera-page__preview__container__buttons">
                         <button
                             className="camera-page__preview__container__buttons__retake"    
@@ -103,7 +177,7 @@ const Camera = () => {
                         >
                             Retake
                         </button>
-                        {(takenPhotos.length < 2) && 
+                        {(takenPhotos.length < 3) && 
                         <button
                             className="camera-page__preview__container__buttons__next-photo"    
                             onClick={handleClickTakeNextPhoto}
