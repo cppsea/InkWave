@@ -1,9 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React, { useRef, useState } from 'react'
 import './NotesPage.css'
+import { Link } from 'react-router-dom'
 
 const NotesPage = () => {
   const [pages, setPages] = useState([''])
+  const [isBold, setIsBold] = useState(false)
+  const [isItalic, setIsItalic] = useState(false)
+  const [isUnderline, setIsUnderline] = useState(false)
   const editorRef = useRef([])
 
   const handleContentChange = (pageIndex, event) => {
@@ -30,11 +34,21 @@ const NotesPage = () => {
 
   //works for italic/undelrine
   const applyFormatting = (command) => {
+    const selection = window.getSelection()
+    const selectedText = selection.toString()
+
+    if (!selectedText) return
+
     if (command === 'bold') {
+      setIsBold(!isBold)
       document.execCommand('styleWithCSS', false, true)
       document.execCommand('bold', false, null)
-    } else {
-      document.execCommand(command, false, null)
+    } else if (command === 'italic') {
+      setIsItalic(!isItalic)
+      document.execCommand('italic', false, null)
+    } else if (command === 'underline') {
+      setIsUnderline(!isUnderline)
+      document.execCommand('underline', false, null)
     }
   }
 
@@ -56,10 +70,12 @@ const NotesPage = () => {
   return (
     <div className="app_container">
       <header className="header">
-        <button className="back_button"> ← Dashboard</button>
-        <h1 className="title"> Untitled</h1>
+        <Link to="/dashboard" className="back_button">
+          ← Dashboard
+        </Link>
+        <h1 className="title">Untitled</h1>
         <button className="save_button" onClick={handleSave}>
-          <i class="fas fa-save"></i> save
+          <i className="fas fa-save"></i> Save
         </button>
       </header>
 
@@ -94,13 +110,22 @@ const NotesPage = () => {
 
         <div className="toolbar toolbar-right">
           <button>12</button>
-          <button onClick={() => applyFormatting('bold')}>
+          <button
+            onClick={() => applyFormatting('bold')}
+            style={{ fontWeight: isBold ? 'bold' : 'normal' }}
+          >
             <b>B</b>
           </button>
-          <button onClick={() => applyFormatting('italic')}>
+          <button
+            onClick={() => applyFormatting('italic')}
+            style={{ fontStyle: isItalic ? 'italic' : 'normal' }}
+          >
             <i>I</i>
           </button>
-          <button onClick={() => applyFormatting('underline')}>
+          <button
+            onClick={() => applyFormatting('underline')}
+            style={{ textDecoration: isUnderline ? 'underline' : 'none' }}
+          >
             <u>U</u>
           </button>
           <hr />
