@@ -1,40 +1,135 @@
 /* eslint-disable prettier/prettier */
 import React, { useRef, useState } from 'react'
 import './NotesPage.css'
+import { Link } from 'react-router-dom'
 
 const NotesPage = () => {
   const [pages, setPages] = useState([''])
+  const [isBold, setIsBold] = useState(false)
+  const [isItalic, setIsItalic] = useState(false)
+  const [isUnderline, setIsUnderline] = useState(false)
   const editorRef = useRef([])
 
-  const handleContentChange = (pageIndex, event) => {
-    const updatedPages = [...pages]
-    updatedPages[pageIndex] = editorRef.current[pageIndex].innerHTML
+    useEffect(() => {
+        editorRef.current = editorRef.current.slice(0, pages.length);
+    }, [pages]);
 
-    const editor = editorRef.current[pageIndex]
-    const contentHeight = editor.scrollHeight
-    const editorHeight = editor.clientHeight
-    const threshold = editorHeight * 0.9
 
-    for (let i = 0; i < pages.length; i++) {
-      const currentEditor = editorRef.current[i]
-      const currentContentHeight = currentEditor.scrollHeight
-      if (currentContentHeight >= threshold) {
-        updatedPages.splice(i + 1, 0, '')
-        break
+    const focusEditor = (editor, position = "start") => {
+        if (editor) {
+            editor.focus();
+            const range = document.createRange();
+            range.selectNodeContents(editor);
+    
+            if (position === "start") {
+                range.collapse(true);
+            } else if (position === "end") {
+                range.collapse(false);
+            }
+    
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    };
+
+  const handleContentChange = (index, event) => {
+    const updatedPages = [...pages];
+    const currentEditor = editorRef.current[index];
+    const text = currentEditor.textContent;
+
+    updatedPages[index] = text;
+
+    if (currentEditor.scrollHeight > currentEditor.clientHeight) {
+      const overflowIndex = Math.floor(text.length * (currentEditor.clientHeight / currentEditor.scrollHeight));
+      const currentPageText = text.slice(0, overflowIndex);
+      const nextPageText = text.slice(overflowIndex);
+
+      updatedPages[index] = currentPageText;
+
+      if (index === pages.length - 1) {
+        updatedPages.push(nextPageText);
+      } else {
+        updatedPages[index + 1] = nextPageText + (updatedPages[index + 1] || "");
+      }
+
+      setPages(updatedPages);
+
+      // Focus the next page
+      setTimeout(() => {
+        const nextEditor = editorRef.current[index + 1];
+        if (nextEditor) {
+          focusEditor(nextEditor, "start");
+        }
+      }, 0);
+    } else {
+      setPages(updatedPages);
+    }
+  };
+
+  const handleKey = (index, event) => {
+    const currentEditor = editorRef.current[index];
+
+    if (event.key === "Backspace" && currentEditor.textContent === "") {
+      event.preventDefault();
+
+      if (index > 0) {
+        const updatedPages = [...pages];
+        updatedPages.splice(index, 1);
+        setPages(updatedPages);
+
+        setTimeout(() => {
+          const prevEditor = editorRef.current[index - 1];
+          if (prevEditor) {
+            focusEditor(prevEditor, "end");
+          }
+        }, 0);
       }
     }
 
-    setPages(updatedPages)
-    setPages([...pages])
-  }
+    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+        const selection = window.getSelection();
+        const range = selection.getRangeAt(0);
+
+        if (event.key === "ArrowUp" && range.startOffset === 0 && range.startContainer === currentEditor.firstChild) {
+            if (index > 0) {
+                focusEditor(editorRef.current[index - 1], "end");
+            }
+        }
+
+        if (event.key === "ArrowDown") {
+            const isCursorAtBottom =
+                range.endOffset === currentEditor.textContent.length &&
+                (!currentEditor.lastChild || range.endContainer === currentEditor.lastChild);
+
+            if (isCursorAtBottom) {
+                event.preventDefault();
+
+                if (index < pages.length - 1) {
+                    focusEditor(editorRef.current[index + 1], "start");
+                }
+            }
+        }
+    }
+};
 
   //works for italic/undelrine
   const applyFormatting = (command) => {
+    const selection = window.getSelection()
+    const selectedText = selection.toString()
+
+    if (!selectedText) return
+
     if (command === 'bold') {
+      setIsBold(!isBold)
       document.execCommand('styleWithCSS', false, true)
       document.execCommand('bold', false, null)
-    } else {
-      document.execCommand(command, false, null)
+    } else if (command === 'italic') {
+      setIsItalic(!isItalic)
+      document.execCommand('italic', false, null)
+    } else if (command === 'underline') {
+      setIsUnderline(!isUnderline)
+      document.execCommand('underline', false, null)
     }
   }
 
@@ -56,10 +151,12 @@ const NotesPage = () => {
   return (
     <div className="app_container">
       <header className="header">
-        <button className="back_button"> ← Dashboard</button>
-        <h1 className="title"> Untitled</h1>
+        <Link to="/dashboard" className="back_button">
+          ← Dashboard
+        </Link>
+        <h1 className="title">Untitled</h1>
         <button className="save_button" onClick={handleSave}>
-          <i class="fas fa-save"></i> save
+          <i className="fas fa-save"></i> Save
         </button>
       </header>
 
@@ -94,13 +191,22 @@ const NotesPage = () => {
 
         <div className="toolbar toolbar-right">
           <button>12</button>
-          <button onClick={() => applyFormatting('bold')}>
+          <button
+            onClick={() => applyFormatting('bold')}
+            style={{ fontWeight: isBold ? 'bold' : 'normal' }}
+          >
             <b>B</b>
           </button>
-          <button onClick={() => applyFormatting('italic')}>
+          <button
+            onClick={() => applyFormatting('italic')}
+            style={{ fontStyle: isItalic ? 'italic' : 'normal' }}
+          >
             <i>I</i>
           </button>
-          <button onClick={() => applyFormatting('underline')}>
+          <button
+            onClick={() => applyFormatting('underline')}
+            style={{ textDecoration: isUnderline ? 'underline' : 'none' }}
+          >
             <u>U</u>
           </button>
           <hr />
