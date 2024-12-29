@@ -1,12 +1,12 @@
 import {useEffect, useRef, useState} from 'react';
 import './Camera.css';
-import Photo from './Photo/Photo';
+import Photo from '../../components/Photo/Photo';
 import RetakePhotoButton from './RetakeButton/RetakePhotoButton';
 import NextPhotoButton from './NextPhotoButton/NextPhotoButton';
-import PreviewNextPhotoButton from './PreviewNextPhotoButton/PreviewNextPhotoButton';
-import PreviewPreviousPhotoButton from './PreviewPreviousPhotoButton/PreviewPrevioiusPhotoButton';
+import PreviewNextPhotoButton from '../../components/PreviewNextPhotoButton/PreviewNextPhotoButton';
+import PreviewPreviousPhotoButton from '../../components/PreviewPreviousPhotoButton/PreviewPrevioiusPhotoButton';
 import HomeButton from './HomeButton/HomeButton';
-import GenerateNotesButton from './GenerateNotesButton/GenerateNotesButton';
+import GenerateNotesButton from '../../components/GenerateNotesButton/GenerateNotesButton';
 import CapturePhotoButton from './CapturePhotoButton/CapturePhotoButton';
 
 const Camera = () => {
@@ -18,9 +18,18 @@ const Camera = () => {
     const [takenPhotos, setTakenPhotos] = useState([]);
     const [currentStream, setCurrentStream] = useState(null);
     const [displayResumeButton, setDisplayResumeButton] = useState(false);
-    const [clickedCaptureButton, setClickedCaptureButton] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [clickedRetakeButton, setClickedRetakeButton] = useState(false);
+
+    // const [viewPreviewTest, setViewPreviewTest] = useState(false);
+
+    // const handleTestPreviewImage = () => {
+    //     setViewPreviewTest(true);
+    // }
+
+    // const handleHidePreviewImage = () => {
+    //     setViewPreviewTest(false);
+    // }
 
     // activates desktop camera
     const handleGetCameraView = () => {
@@ -117,7 +126,6 @@ const Camera = () => {
                         <CapturePhotoButton
                             tempCanvas={tempCanvas}
                             setDisplayVideo={setDisplayVideo}
-                            setClickedCaptureButton={setClickedCaptureButton}
                             photosContainerRef={photosContainerRef}
                             videoDisplayRef={videoDisplayRef}
                             clickedRetakeButton={clickedRetakeButton}
@@ -142,9 +150,25 @@ const Camera = () => {
                 </div>
             )}
             <HomeButton
+                takenPhotos={takenPhotos}
                 setTakenPhotos={setTakenPhotos}
             />
 
+            {/* {(!viewPreviewTest) ? (
+                <button 
+                    className="test-priority-one"
+                    onClick={handleTestPreviewImage}
+                >
+                    preview image
+                </button>
+            ) : (
+                <button 
+                    className="test-priority-two"
+                    onClick={handleHidePreviewImage}
+                >
+                    hide preview
+                </button>
+            )} */}
         </div>
     );
 }

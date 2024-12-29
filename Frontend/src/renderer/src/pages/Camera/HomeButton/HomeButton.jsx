@@ -1,6 +1,9 @@
-const HomeButton = ({setTakenPhotos}) => {
+const HomeButton = ({takenPhotos, setTakenPhotos}) => {
 
     const handleClickHomeButton = () => {
+        takenPhotos.forEach(imageUrl => {
+            URL.revokeObjectURL(imageUrl);
+        })
         setTakenPhotos([]);
     }
 

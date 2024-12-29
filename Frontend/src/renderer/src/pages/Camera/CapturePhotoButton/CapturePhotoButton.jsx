@@ -1,4 +1,4 @@
-const CapturePhotoButton = ({tempCanvas, setDisplayVideo, setClickedCaptureButton, photosContainerRef, videoDisplayRef, 
+const CapturePhotoButton = ({tempCanvas, setDisplayVideo, photosContainerRef, videoDisplayRef, 
                             clickedRetakeButton, setClickedRetakeButton, takenPhotos, setTakenPhotos, currentIndex, 
                             setCurrentIndex, currentStream, setCurrentStream}) => {
 
@@ -6,7 +6,6 @@ const CapturePhotoButton = ({tempCanvas, setDisplayVideo, setClickedCaptureButto
         const context = tempCanvas.getContext("2d");
 
         setDisplayVideo(false);
-        setClickedCaptureButton(true);
 
         // sets height and weight of photo
         tempCanvas.width = videoDisplayRef.current.videoWidth;

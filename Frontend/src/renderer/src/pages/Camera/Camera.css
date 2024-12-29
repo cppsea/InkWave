@@ -112,13 +112,17 @@
     font-size: 20px;
 }
 
-/* .test-priority-one {
+.test-priority-one {
     z-index: 3;
 }
 
 .test-priority-two {
     z-index: 4;
-} */
+}
+
+.priority-image {
+    z-index: 5;
+}
 
 .test {
     position: absolute;
