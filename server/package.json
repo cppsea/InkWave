@@ -25,9 +25,11 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "express": "^4.21.2",
     "mongodb": "^6.10.0",
-    "mongoose": "^8.8.1"
+    "mongoose": "^8.8.1",
+    "nodemailer": "^6.9.16"
   }
 }
