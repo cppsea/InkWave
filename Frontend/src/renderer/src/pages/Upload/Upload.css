@@ -1,0 +1,45 @@
+.upload-page {
+    position: absolute;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.upload-page__preview {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F5FFFD;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+}
+
+.upload-page__preview__container {
+    position: absolute;
+    width: 0px;
+}
+
+.upload-page__preview__container__buttons {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.upload-page__preview__container__photos-array {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    transform: translate(-50%);
+    width: 75vw;
+    height: 75vh;
+}

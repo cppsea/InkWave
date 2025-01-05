@@ -1,0 +1,12 @@
+{
+  "name": "inkwave",
+  "version": "1.0.0",
+  "description": "InkWave is all about developing a machine learning model capable of converting handwritten notes into digitized ones. The digitized text would be used to be formatted into various files, including pdf and markdown. Ultimately we would be building a UI for the ML model so that we can see it in works and use it when required easily. We would be using Computer Vision, Natural Language Processing and Large Language Model in order to develop it.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -10,9 +10,6 @@ const NotesPage = () => {
   const [isUnderline, setIsUnderline] = useState(false)
   const editorRef = useRef([])
 
-    useEffect(() => {
-        editorRef.current = editorRef.current.slice(0, pages.length);
-    }, [pages]);
 
 
     const focusEditor = (editor, position = "start") => {
@@ -33,38 +30,23 @@ const NotesPage = () => {
         }
     };
 
-  const handleContentChange = (index, event) => {
-    const updatedPages = [...pages];
-    const currentEditor = editorRef.current[index];
-    const text = currentEditor.textContent;
+    const handleContentChange = (index, event) => {
+      const updatedPages = [...pages];
+      const currentEditor = editorRef.current[index];
+  
+      if (currentEditor) {
+          const text = currentEditor.innerHTML || '';
+          updatedPages[index] = text;
 
-    updatedPages[index] = text;
+          currentEditor.style.height = "auto"; 
+          currentEditor.style.height = `${currentEditor.scrollHeight}px`;
 
-    if (currentEditor.scrollHeight > currentEditor.clientHeight) {
-      const overflowIndex = Math.floor(text.length * (currentEditor.clientHeight / currentEditor.scrollHeight));
-      const currentPageText = text.slice(0, overflowIndex);
-      const nextPageText = text.slice(overflowIndex);
-
-      updatedPages[index] = currentPageText;
-
-      if (index === pages.length - 1) {
-        updatedPages.push(nextPageText);
-      } else {
-        updatedPages[index + 1] = nextPageText + (updatedPages[index + 1] || "");
+          //resize paper
+          const parent = currentEditor.parentNode;
+          parent.style.height = `${currentEditor.scrollHeight}px`;
       }
-
+  
       setPages(updatedPages);
-
-      // Focus the next page
-      setTimeout(() => {
-        const nextEditor = editorRef.current[index + 1];
-        if (nextEditor) {
-          focusEditor(nextEditor, "start");
-        }
-      }, 0);
-    } else {
-      setPages(updatedPages);
-    }
   };
 
   const handleKey = (index, event) => {

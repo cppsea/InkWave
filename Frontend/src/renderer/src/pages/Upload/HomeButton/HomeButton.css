@@ -1,0 +1,7 @@
+.home-button {
+    position: absolute;
+    background-color: white;
+    border-radius: 6px;
+    top: 20px;
+    left: 10px;
+}
