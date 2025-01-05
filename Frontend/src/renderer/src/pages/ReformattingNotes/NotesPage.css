@@ -11,7 +11,7 @@ body {
 .app_container {
   background-color: transparent;
   flex-direction: column;
-
+  height: 1920px;
   width: 95vw;
 }
 

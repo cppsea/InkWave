@@ -10,6 +10,7 @@ import HomeButton from './HomeButton/HomeButton'
 import GenerateNotesButton from '../../components/GenerateNotesButton/GenerateNotesButton'
 import CapturePhotoButton from './CapturePhotoButton/CapturePhotoButton'
 
+
 const Camera = () => {
   const videoDisplayRef = useRef(null)
   const tempCanvas = document.createElement('canvas')
