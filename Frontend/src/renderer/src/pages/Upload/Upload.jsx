@@ -54,6 +54,7 @@ const Upload = () => {
                 )}
             </div>
             <HomeButton
+                takenPhotos={takenPhotos}
                 setTakenPhotos={setTakenPhotos}
                 setCurrentIndex={setCurrentIndex}
             />

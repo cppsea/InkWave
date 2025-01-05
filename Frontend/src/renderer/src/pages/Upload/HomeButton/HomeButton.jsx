@@ -1,8 +1,11 @@
 import './HomeButton.css';
 
-const HomeButton = ({setTakenPhotos, setCurrentIndex}) => {
+const HomeButton = ({takenPhotos, setTakenPhotos, setCurrentIndex}) => {
 
     const handleClickHomeButton = () => {
+        takenPhotos.forEach(imageUrl => {
+            URL.revokeObjectURL(imageUrl);
+        })
         setTakenPhotos([]);
         setCurrentIndex(0);
     }

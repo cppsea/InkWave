@@ -132,9 +132,13 @@ const Camera = () => {
         </div>
       )}
       <Link to="/">
-        <button className="camera-page__home-button" onClick={handleClickHomeButton}>
-          {'< Home'}
-        </button>
+        <HomeButton
+          takenPhotos={takenPhotos}
+          setTakenPhotos={setTakenPhotos}
+          currentStream={currentStream}
+          setCurrentStream={setCurrentStream}
+          videoDisplayRef={videoDisplayRef}
+        />
       </Link>
     </div>
   )
