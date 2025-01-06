@@ -17,7 +17,6 @@ body {
   height: 100vh;
 }
 
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -28,24 +27,33 @@ body {
   width: 97vw;
   padding-top: 50px;
   position: relative;
- 
 }
 
-.back_button{
-  align-self: flex-start; 
-  margin-bottom: 5px; 
+.back_button {
+  align-self: flex-start;
+  margin-bottom: 5px;
   text-decoration: none;
   color: #333;
   font-size: 16px;
   cursor: pointer;
 }
 .save_button {
-  align-self: flex-end; 
-  margin-top: 5px; 
+  align-self: flex-end;
+  margin-top: 5px;
   font-size: 16px;
   color: #333;
   text-decoration: none;
   cursor: pointer;
+  padding: 10px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+.save_button:hover {
+  background-color: #f0f0f0;
 }
 
 .title {
@@ -57,26 +65,24 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  
 }
 
 .main_container {
   display: flex;
-  flex-direction: column; 
-  gap: 20px; 
+  flex-direction: column;
+  gap: 20px;
   padding: 20px;
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
-
 .editor {
-  width: 8.5in; 
-  min-height: 11in; 
-  background-color: white; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
-  margin: 0 auto; 
-  padding: 20px; 
-  border-radius: 5px; 
+  width: 8.5in;
+  min-height: 11in;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
   border: 1px solid #ddd;
 }
 
@@ -90,12 +96,12 @@ body {
   overflow-y: auto;
 }
 
-.page{
-  width: 8.5in; 
-  min-height: 11in; 
+.page {
+  width: 8.5in;
+  min-height: 11in;
   height: auto;
   background: white;
-  border: 1px white; 
+  border: 1px white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   display: flex;
@@ -104,23 +110,21 @@ body {
   overflow-y: auto;
   transition: height 0.2s ease;
   margin: 20px auto;
-
-
 }
 .editor_textarea {
   font-weight: normal !important;
 }
 
 .editor_textarea {
-  width: 100%; 
-  height: 100%; 
-  background: transparent; 
-  border: none; 
-  outline: none; 
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
   font-size: 16px;
   line-height: 1.6;
-  resize: none; 
-  overflow-x: hidden; 
+  resize: none;
+  overflow-x: hidden;
   overflow-y: hidden;
   scrollbar-width: none;
 }

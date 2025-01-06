@@ -36,6 +36,9 @@ const Home = () => {
           <Link to="/camera">
             <button className="popup-button">Take Photo or Video</button>
           </Link>
+          <Link to="/upload">
+            <button className="popup-button">Upload a Picture</button>
+          </Link>
         </div>
       )}
     </div>

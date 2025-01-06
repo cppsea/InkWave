@@ -1,23 +1,16 @@
-import './HomeButton.css';
+import './HomeButton.css'
 
-const HomeButton = ({takenPhotos, setTakenPhotos, setCurrentIndex}) => {
+const HomeButton = ({ setTakenPhotos, setCurrentIndex }) => {
+  const handleClickHomeButton = () => {
+    setTakenPhotos([])
+    setCurrentIndex(0)
+  }
 
-    const handleClickHomeButton = () => {
-        takenPhotos.forEach(imageUrl => {
-            URL.revokeObjectURL(imageUrl);
-        })
-        setTakenPhotos([]);
-        setCurrentIndex(0);
-    }
-
-    return (  
-        <button 
-            className="home-button"
-            onClick={handleClickHomeButton}
-        >
-            {"< Home"}
-        </button>
-    );
+  return (
+    <button className="home-button-upload" onClick={handleClickHomeButton}>
+      {'< Home'}
+    </button>
+  )
 }
- 
-export default HomeButton;
+
+export default HomeButton

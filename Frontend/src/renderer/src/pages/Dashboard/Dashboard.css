@@ -22,6 +22,20 @@ body {
   margin-bottom: 10px;
 }
 
+.back_button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+.back_button:hover {
+  background-color: #f0f0f0;
+}
+
 .dashboard-title {
   font-size: 32px;
   font-weight: bold;

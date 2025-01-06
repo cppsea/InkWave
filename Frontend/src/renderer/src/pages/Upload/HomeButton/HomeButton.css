@@ -1,7 +1,18 @@
-.home-button {
-    position: absolute;
-    background-color: white;
-    border-radius: 6px;
-    top: 20px;
-    left: 10px;
+.home-button-upload {
+  position: absolute;
+  background-color: white;
+  border-radius: 6px;
+  top: 20px;
+  left: 10px;
+  width: 200px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.home-button-upload:hover {
+  background-color: #f0f0f0;
 }
