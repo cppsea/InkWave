@@ -1,0 +1,35 @@
+{
+  "name": "inkwave",
+  "version": "1.0.0",
+  "description": "converts handwritten notes into digital text",
+  "main": "server.ts",
+  "scripts": {
+    "start": "electron .",
+    "server": "npx ts-node src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cppsea/InkWave.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cppsea/InkWave/issues"
+  },
+  "homepage": "https://github.com/cppsea/InkWave#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "electron": "^33.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "mongodb": "^6.10.0",
+    "mongoose": "^8.8.1",
+    "nodemailer": "^6.9.16"
+  }
+}
