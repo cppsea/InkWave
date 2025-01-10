@@ -1,6 +1,6 @@
 # How to Run Demo
 
-### Change directory to Frontend folder
+### Change directory to Frontend folder (this command is from the root of the project)
 Command: `cd Frontend`
 
 ### Install dependencies in the Frontend folder if the dependencies have not been installed
