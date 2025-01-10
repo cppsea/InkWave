@@ -10,6 +10,8 @@ An Electron application with React
 
 ### Install
 
+Make sure to run this command before running the frontend application.
+
 ```bash
 $ npm install
 ```

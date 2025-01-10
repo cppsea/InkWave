@@ -1,3 +1,15 @@
+# How to Run Demo
+
+### Change directory to Frontend folder
+Command: `cd Frontend`
+
+### Install dependencies in the Frontend folder if the dependencies have not been installed
+Command: `npm install`
+
+### Start the demo of the application
+Command: `npm run dev`
+
+
 # BACKEND
 Backend is responsible for routing data between frontend, ml models, and the database. 
 

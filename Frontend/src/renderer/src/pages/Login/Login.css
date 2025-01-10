@@ -1,0 +1,86 @@
+.login-page {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(#dafff8, #80bbff);
+    width: 100%;
+    height: 100%;
+}
+
+.login-page__centered-container {
+    position: absolute;
+}
+
+.login-page__centered-container__title {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 70px;
+    top: -50px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.login-page__centered-container__input-fields {
+    background-color: #D7FFF7;
+    border: 2px solid black;
+    box-shadow: 0px 6px 10px #0d69d2;
+    border-radius: 20px;
+    height: 450px;
+    width: 450px;
+}
+
+.login-page_centered-container__input-fields__email-label {
+    position: absolute;
+    top: 190px;
+    left: 35px;
+    font-size: 16px;
+}
+
+.login-page__centered-container__input-fields__email-field {
+    position: absolute;
+    border: 1.5px solid black;
+    width: 380px;
+    height: 30px;
+    top: 215px;
+    left: 35px;
+}
+
+.login-page__centered-container__input-fields__password-label {
+    position: absolute;
+    top: 275px;
+    left: 35px;
+    font-size: 16px;
+}
+
+.login-page__centered-container__input-fields__password-field {
+    position: absolute;
+    border: 1.5px solid black;
+    width: 380px;
+    height: 30px;
+    top: 300px;
+    left: 35px;
+}
+
+.login-page__centered-container__input-fields__login-button {
+    position: absolute;
+    background-color: white;
+    top: 450px;
+    left: 165px;
+    width: 120px;
+    height: 45px;
+    border-radius: 15px;
+    font-size: 16px;
+}
+
+.login-page__register-button {
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    transform: translate(-50%);
+    font-size: 16px;
+    bottom: 15px;
+    left: 50%;
+}
