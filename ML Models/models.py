@@ -1,14 +1,25 @@
 from paddleocr import PaddleOCR,draw_ocr
 
+import cv2
+
+import skimage.morphology as morph
+
 def cv_model(img_path):
     # Paddleocr supports Chinese, English, French, German, Korean and Japanese.
     # You can set the parameter `lang` as `ch`, `en`, `fr`, `german`, `korean`, `japan`
     # to switch the language model in order.
     local_model_dir = './local_paddleocr_model/'
 
+        ###### PREPROCESSING #########
+        # grayscale
+    image = cv2.imread(img_path)
+    preprocessed = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        # thin and skeletonize
+    preprocessed = morph.thin(preprocessed)
+    preprocessed = morph.skeletonize(preprocessed)
     # Initialize PaddleOCR with the local model directory
     ocr = PaddleOCR(use_angle_cls=True, lang='en', rec_model_dir=f'{local_model_dir}/rec') 
-    result = ocr.ocr(img_path, cls=True)
+    result = ocr.ocr(preprocessed, cls=True)
 
     if result[0] == None:
         raise ValueError("No text found.")
@@ -78,29 +89,22 @@ def llm_model(document_path):
 
 
 
-from NLPModel_4 import NLPProcessor
-def nlp_model_md(document_path):
-    processor = NLPProcessor()
-    LLM_to_NLP = processor.read_file(document_path)
-    processor.nlp_format(LLM_to_NLP)
-    return 'nlp_output.md', processor
+# from NLPModel_4 import NLPProcessor
+# def nlp_model_md(document_path):
+#     processor = NLPProcessor()
+#     LLM_to_NLP = processor.read_file(document_path)
+#     processor.nlp_format(LLM_to_NLP)
+#     return 'nlp_output.md', processor
 
-def nlp_model_pdf(document_path, processor):
-    processor.to_pdf(document_path)
+# def nlp_model_pdf(document_path, processor):
+#     processor.to_pdf(document_path)
 
 
+# cv and llm model combined
+def cv_llm(img_path):
+    llm_model(cv_model(img_path))
+    return 'llm_output.txt'
 
 # test models in flow state
 
-cv_model('notes.jpg')
-llm_model('cv_output.txt')
-output, processor = nlp_model_md('llm_output.txt')
-# nlp_model_pdf(output, processor)
-
-# cv_model('blank.jpg')
-
-
-# cv_model('digital.png')
-# llm_model('cv_output.txt')
-# output, processor = nlp_model_md('llm_output.txt')
-# nlp_model_pdf(output, processor)
+cv_llm("notes.jpg")
