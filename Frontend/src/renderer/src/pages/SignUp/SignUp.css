@@ -51,10 +51,20 @@
 
 .sign-up-page__centered-container__input-fields__email-field {
     position: absolute;
+    outline: none;
     border: 1.5px solid black;
+    padding-left: 5px;
     width: 380px;
     height: 30px;
     top: 215px;
+    left: 35px;
+}
+
+.sign-up-page__centered-container__input-fields__email-error {
+    position: absolute;
+    color: red;
+    font-size: 15px;
+    top: 245px;
     left: 35px;
 }
 
@@ -67,10 +77,20 @@
 
 .sign-up-page__centered-container__input-fields__password-field {
     position: absolute;
+    outline: none;
     border: 1.5px solid black;
+    padding-left: 5px;
     width: 380px;
     height: 30px;
     top: 300px;
+    left: 35px;
+}
+
+.sign-up-page__centered-container__input-fields__password-error {
+    position: absolute;
+    color: red;
+    font-size: 15px;
+    top: 330px;
     left: 35px;
 }
 
@@ -83,10 +103,20 @@
 
 .sign-up-page__centered-container__input-fields__confirm-password-field {
     position: absolute;
+    outline: none;
     border: 1.5px solid black;
+    padding-left: 5px;
     width: 380px;
     height: 30px;
     top: 385px;
+    left: 35px;
+}
+
+.sign-up-page__centered-container__input-fields__confirm-password-error {
+    position: absolute;
+    color: red;
+    font-size: 15px;
+    top: 415px;
     left: 35px;
 }
 

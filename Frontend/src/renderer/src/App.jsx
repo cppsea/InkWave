@@ -6,6 +6,8 @@ import '/src/pages/ReformattingNotes/NotesPage.css'
 import Camera from './pages/Camera/Camera'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Upload from './pages/Upload/Upload'
+import Login from './pages/Login/Login'
+import SignUp from './pages/SignUp/SignUp'
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="/notes" element={<NotesPage />} />
           <Route path="/camera" element={<Camera />} />
           <Route path="/upload" element={<Upload />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<SignUp />} />
         </Routes>
       </Router>
     </div>

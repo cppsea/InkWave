@@ -97,3 +97,7 @@ body {
 .popup-button:hover {
   background-color: #e0f7fa;
 }
+
+.home-button__log-out {
+  margin-top: 10px;
+}

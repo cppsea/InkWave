@@ -41,6 +41,10 @@ const Home = () => {
           </Link>
         </div>
       )}
+
+      <Link to="/login">
+        <button className="home-button home-button__log-out">Log out</button>
+      </Link>
     </div>
   )
 }
