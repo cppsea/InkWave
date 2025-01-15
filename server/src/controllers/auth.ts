@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import User from "../models/UserSchema.ts";
 import Note, { NoteInterface } from "../models/NoteSchema.ts";
 
+const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
 // const nodemailer = require("nodemailer");
@@ -17,45 +18,55 @@ const bcrypt = require("bcryptjs");
 // });
 
 const login = async (req: Request, res: Response) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
 
-  User.findOne({ email: email }).then((user) => {
-    if (!user) {
-      return res.send("email does not exist");
+    //check for valid email first
+    if (!validator.isEmail(email)) {
+      return res.status(400).send({ message: "Invalid email format" });
     }
 
-    bcrypt.compare(password, user.password).then((areEqual: Boolean) => {
-      if (areEqual) {
-        const userString = user.email + ", " + user.password;
-        return res.send("login successful\n" + userString);
-      }
-    });
-    //catch block for errors with bcrypt
-  });
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).send({ message: "Email does not exist" });
+    }
 
-  // ** TO DO ** //
+    const areEqual = await bcrypt.compare(password, user.password);
+    if (areEqual) {
+      const userData = { email: user.email, message: "Login successful" };
+      return res.send(userData);
+    } else {
+      return res.status(401).send({ message: "Invalid password" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Error logging in" });
+  }
 };
 
 const register = async (req: Request, res: Response) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
 
-  //handle incorrect email format
+    //check for valid email
+    if (!validator.isEmail(email)) {
+      return res.status(400).send({ message: "Invalid email format" });
+    }
 
-  bcrypt.hash(password, 12).then((hashedPassword: String) => {
+    const hashedPassword = await bcrypt.hash(password, 12);
     const user = new User({
-      email: email,
+      email,
       password: hashedPassword,
     });
 
-    return user.save();
-  });
-  //catch block for errors with hashing
-
-  res.send("user created");
-
-  // ** TO DO ** //
+    const savedUser = await user.save();
+    res.send({ message: "User created", user: savedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Error creating user" });
+  }
 };
 
 const forgotPassword = async (req: Request, res: Response) => {
