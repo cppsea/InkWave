@@ -1,10 +1,8 @@
 from paddleocr import PaddleOCR,draw_ocr
-
 import cv2
-
 import skimage.morphology as morph
 
-notesImgPath = "C:\Users\prern\OneDrive\Documents\GitHub\CS4250\InkWave\InkWave\ML Models\notes.jpg"
+notesImgPath = r"C:\Users\prern\OneDrive\Documents\GitHub\CS4250\InkWave\InkWave\ML Models\notes.jpg"
 
 
 def cv_model(img_path):
