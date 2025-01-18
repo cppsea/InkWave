@@ -4,6 +4,9 @@ import cv2
 
 import skimage.morphology as morph
 
+notesImgPath = "C:\Users\prern\OneDrive\Documents\GitHub\CS4250\InkWave\InkWave\ML Models\notes.jpg"
+
+
 def cv_model(img_path):
     # Paddleocr supports Chinese, English, French, German, Korean and Japanese.
     # You can set the parameter `lang` as `ch`, `en`, `fr`, `german`, `korean`, `japan`
@@ -13,6 +16,8 @@ def cv_model(img_path):
         ###### PREPROCESSING #########
         # grayscale
     image = cv2.imread(img_path)
+    print(image.dtype)
+
     preprocessed = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         # thin and skeletonize
     preprocessed = morph.thin(preprocessed)
@@ -107,4 +112,4 @@ def cv_llm(img_path):
 
 # test models in flow state
 
-cv_llm("notes.jpg")
+cv_llm(notesImgPath)
