@@ -88,19 +88,3 @@ def nlp_model_md(document_path):
 def nlp_model_pdf(document_path, processor):
     processor.to_pdf(document_path)
 
-
-
-# test models in flow state
-
-cv_model('notes.jpg')
-llm_model('cv_output.txt')
-output, processor = nlp_model_md('llm_output.txt')
-# nlp_model_pdf(output, processor)
-
-# cv_model('blank.jpg')
-
-
-# cv_model('digital.png')
-# llm_model('cv_output.txt')
-# output, processor = nlp_model_md('llm_output.txt')
-# nlp_model_pdf(output, processor)
