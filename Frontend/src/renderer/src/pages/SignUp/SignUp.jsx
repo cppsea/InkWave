@@ -11,18 +11,19 @@ const SignUp = () => {
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [isValidPassword, setIsValidPassword] = useState(true);
     const [isValidConfirmPassword, setIsValidConfirmPassword] = useState(true);
-    const [isValidToRegister, setIsValidToRegister] = useState(true);
+    let isValidToRegister = true;
+    // const [isValidToRegister, setIsValidToRegister] = useState(true);
 
 
     const handleClickRegister = () => {
-        setIsValidToRegister(true);
+        isValidToRegister = true;
 
         if (emailInput.length > 0) {
             setIsValidEmail(true);
         }
         else {
             setIsValidEmail(false);
-            setIsValidToRegister(false);
+            isValidToRegister = false;
         }
 
         if (passwordInput.length > 5) {
@@ -30,7 +31,7 @@ const SignUp = () => {
         }
         else {
             setIsValidPassword(false);
-            setIsValidToRegister(false);
+            isValidToRegister = false;
         }
 
         if (passwordInput === confirmPasswordInput) {
@@ -38,7 +39,7 @@ const SignUp = () => {
         }
         else {
             setIsValidConfirmPassword(false);
-            setIsValidToRegister(false);
+            isValidToRegister = false;
         }
 
         if (isValidToRegister) {
