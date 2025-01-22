@@ -24,20 +24,20 @@ const login = async (req: Request, res: Response) => {
 
     //check for valid email first
     if (!validator.isEmail(email)) {
-      return res.status(400).send({ message: "Invalid email format" });
+      res.status(400).send({ message: "Invalid email format" });
     }
 
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).send({ message: "Email does not exist" });
-    }
-
-    const areEqual = await bcrypt.compare(password, user.password);
-    if (areEqual) {
-      const userData = { email: user.email, message: "Login successful" };
-      return res.send(userData);
+      res.status(401).send({ message: "Email does not exist" });
     } else {
-      return res.status(401).send({ message: "Invalid password" });
+      const areEqual = await bcrypt.compare(password, user.password);
+      if (areEqual) {
+        const userData = { email: user.email, message: "Login successful" };
+        res.send(userData);
+      } else {
+        res.status(401).send({ message: "Invalid password" });
+      }
     }
   } catch (error) {
     console.error(error);
@@ -52,7 +52,7 @@ const register = async (req: Request, res: Response) => {
 
     //check for valid email
     if (!validator.isEmail(email)) {
-      return res.status(400).send({ message: "Invalid email format" });
+      res.status(400).send({ message: "Invalid email format" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -74,7 +74,7 @@ const forgotPassword = async (req: Request, res: Response) => {
 
   User.findOne({ email: email }).then((user) => {
     if (!user) {
-      return res.send("email does not exist");
+      res.send("email does not exist");
     }
 
     //send a reset password email to user, using nodemailer library
