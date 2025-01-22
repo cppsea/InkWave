@@ -41,11 +41,13 @@
 
 .login-page__centered-container__input-fields__email-field {
     position: absolute;
+    outline: none;
     border: 1.5px solid black;
     width: 380px;
     height: 30px;
     top: 215px;
     left: 35px;
+    padding-left: 5px;
 }
 
 .login-page__centered-container__input-fields__password-label {
@@ -57,11 +59,13 @@
 
 .login-page__centered-container__input-fields__password-field {
     position: absolute;
+    outline: none;
     border: 1.5px solid black;
     width: 380px;
     height: 30px;
     top: 300px;
     left: 35px;
+    padding-left: 5px;
 }
 
 .login-page__centered-container__input-fields__login-button {

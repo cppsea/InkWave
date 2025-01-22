@@ -53,11 +53,10 @@ const SignUp = () => {
                     "Content-type": "application/json"
                 },
                 body: JSON.stringify(userInformation)
-            }).then(() => {
-                console.log("New account has been created");
+            }).then((response) => {
+                console.log("response: ", response);
             })
         }
-
 
         console.log("clicked sign up");
     }
@@ -94,6 +93,7 @@ const SignUp = () => {
                     <div className="sign-up-page__centered-container__input-fields__password-label">Password:</div>
                     <input 
                         className="sign-up-page__centered-container__input-fields__password-field"
+                        type="password"
                         value={passwordInput}
                         onChange={handleChangePasswordInput}
                     />
@@ -103,6 +103,7 @@ const SignUp = () => {
                     <div className="sign-up-page__centered-container__input-fields__confirm-password-label">Confirm Password:</div>
                     <input 
                         className="sign-up-page__centered-container__input-fields__confirm-password-field"
+                        type="password"
                         value={confirmPasswordInput}
                         onChange={handleChangeConfirmPasswordInput}
                     />
