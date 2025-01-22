@@ -95,6 +95,9 @@ const NotesPage = () => {
     }
 };
 
+
+
+
   //works for italic/undelrine
   const applyFormatting = (command) => {
     const selection = window.getSelection()
