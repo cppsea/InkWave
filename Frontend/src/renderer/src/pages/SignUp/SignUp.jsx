@@ -15,7 +15,7 @@ const SignUp = () => {
     // const [isValidToRegister, setIsValidToRegister] = useState(true);
 
 
-    const handleClickRegister = () => {
+    const handleClickRegister = async () => {
         isValidToRegister = true;
 
         if (emailInput.length > 0) {
@@ -48,7 +48,7 @@ const SignUp = () => {
                 password: passwordInput
             }
 
-            fetch("http://localhost:1400/register", {
+            const data = await fetch("http://localhost:1400/register", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"
