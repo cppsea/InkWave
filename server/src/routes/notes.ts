@@ -5,31 +5,36 @@ const router = express.Router();
 
 /**
  * Retrieves all notes for a user
- * @route GET /api/notes/:userID
+ * GET /api/notes/:userID
  */
 router.get("/:userID", notesController.getAllNotes);
 
 /**
  * Retrieves a specific note for a user
- * @route GET /api/notes/:userID/:noteID
+ * GET /api/notes/:userID/:noteID
  */
 router.get("/:userID/:noteID", notesController.getNote);
 
 /**
  * Receive an image and sends it to the ML models
- * @route POST /api/notes/summary
+ * Assuming no errors occur, this will automatically save the document into the database.
+ * POST /api/notes/summary
  */
 router.post("/summary", notesController.getSummary);
 
 /**
  * Handles saving a note to the database (editing purposes)
- * @route PUT /api/notes/save/:noteID
+ * PATCH /api/notes/save/:noteID
+ *
+ * @body {string} name - Name of the note
+ * @body {ObjectId} image - Original image/photo
+ * @body {ObjectId} md - Markdown file of the summary
  */
-router.put("/save/:noteID", notesController.saveNote);
+router.patch("/save/:noteID", notesController.saveNote);
 
 /**
  * Handles deleting a note from the database
- * @route DELETE /api/notes/delete/:noteID
+ * DELETE /api/notes/delete/:noteID
  */
 router.delete("/delete/:noteID", notesController.deleteNote);
 

@@ -1,9 +1,11 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { UserInterface } from "./UserSchema";
 import { ImageInterface } from "./ImageSchema";
 import { SummaryInterface } from "./SummarySchema";
 
 export interface NoteInterface extends Document {
   _id: mongoose.Types.ObjectId;
+  userID: mongoose.Types.ObjectId | UserInterface;
   name: string;
   image: mongoose.Types.ObjectId | ImageInterface;
   md: mongoose.Types.ObjectId | SummaryInterface;
@@ -12,6 +14,11 @@ export interface NoteInterface extends Document {
 
 const NoteSchema: Schema = new Schema<NoteInterface>({
   _id: Schema.Types.ObjectId,
+  userID: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   name: {
     type: String,
     default: new Date(Date.now()).toString(),

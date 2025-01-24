@@ -2,6 +2,7 @@
 import mongoose from "mongoose";
 import app from "./app";
 import dotenv from "dotenv";
+import seedData from "./utils/seedData";
 
 dotenv.config();
 
@@ -10,7 +11,12 @@ const port: string | number = process.env.PORT || 1400;
 
 mongoose
   .connect(MONGODB_URI)
-  .then(() => {
+  .then(async () => {
+    console.log("Connected to DB.");
+
+    // Populate db with dummy data
+    // await seedData();
+
     app.listen(port, () => {
       console.log(`Server is running on http://localhost:${port}`);
     });
