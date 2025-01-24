@@ -1,29 +1,62 @@
-import { Request, Response } from "express";
-import Note, { NoteInterface } from "../models/NoteSchema.ts";
+const {
+  generateSummaryFromImage,
+  saveNoteToDatabase,
+  getAllNotes,
+  getNoteById,
+} = require("../models/Notes/note.service");
 
-const getAllNotes = async (req: Request, res: Response) => {
-  res.send("GET request /api/notes/:userID");
-  // ** TO DO ** //
+exports.generateSummary = async (req, res) => {
+  try {
+    const { image } = req.body;
+    if (!image) {
+      return res.status(400).json({ error: "Image is required" });
+    }
+    const summary = await generateSummaryFromImage(image);
+    res.status(200).json({ summary });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
-const getNote = async (req: Request, res: Response) => {
-  res.send("GET request /api/notes/:userID/:noteID");
-  // ** TO DO ** //
+exports.saveNote = async (req, res) => {
+  try {
+    const noteData = req.body;
+    if (!noteData || !noteData.title || !noteData.content) {
+      return res.status(400).json({ error: "Title and content are required" });
+    }
+    await saveNoteToDatabase(noteData);
+    res.status(201).json({ message: "Note saved successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
-const getSummary = async (req: Request, res: Response) => {
-  res.send("POST request /api/notes/summary");
-  // ** TO DO ** //
+exports.getNotes = async (req, res) => {
+  try {
+    const userId = req.user?.id; // Assuming user ID is available in the request object
+    if (!userId) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const notes = await getAllNotes(userId);
+    res.status(200).json({ notes });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
-const saveNote = async (req: Request, res: Response) => {
-  res.send("PUT request /api/notes/save/:noteID");
-  // ** TO DO ** //
+exports.getNoteById = async (req, res) => {
+  try {
+    const { id: noteId } = req.params;
+    if (!noteId) {
+      return res.status(400).json({ error: "Note ID is required" });
+    }
+    const note = await getNoteById(noteId);
+    if (note) {
+      res.status(200).json({ note });
+    } else {
+      res.status(404).json({ message: "Note not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
-
-const deleteNote = async (req: Request, res: Response) => {
-  res.send("DELETE request /api/notes/delete/:noteID");
-  // ** TO DO ** //
-};
-
-export { getAllNotes, getNote, getSummary, saveNote, deleteNote };
