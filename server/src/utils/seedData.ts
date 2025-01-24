@@ -1,5 +1,4 @@
 // src/utils/seed.ts
-import { v4 as uuidv4 } from "uuid";
 import Note from "../models/NoteSchema";
 import User from "../models/UserSchema";
 
