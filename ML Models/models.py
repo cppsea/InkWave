@@ -70,11 +70,11 @@ def llm_model(document_path):
     """
         Write changes to output file.
         """
-    output_file = "llm_output.txt"
+    output_file = "llm_output.md"
     with open(output_file, "w", encoding='utf-8') as file:
         file.write(content)
     
-    return 'llm_output.txt'
+    return 'llm_output.md'
 
 
 
