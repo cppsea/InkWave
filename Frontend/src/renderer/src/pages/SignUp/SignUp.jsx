@@ -48,8 +48,9 @@ const SignUp = () => {
                 password: passwordInput
             }
 
-            const data = await fetch("http://localhost:1400/register", {
+            const data = await fetch("http://localhost:1400/api/auth/register", {
                 method: "POST",
+                mode: 'cors',
                 headers: {
                     "Content-type": "application/json"
                 },
