@@ -1,5 +1,6 @@
 // index.ts
 import express from "express";
+const cors = require('cors');
 
 import authRouter from "./routes/auth.ts";
 import notesRouter from "./routes/notes.ts";
@@ -7,6 +8,7 @@ import usersRouter from "./routes/users.ts";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 // Routes
