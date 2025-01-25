@@ -28,7 +28,7 @@ const getAllNotes = async (req: Request, res: Response) => {
       return;
     }
 
-    const notes = await Note.find({ userID });
+    const notes = await Note.find({ userID }).sort({ lastUpdated: -1 });
 
     // Check if there's any notes
     if (notes.length === 0) {
@@ -43,6 +43,57 @@ const getAllNotes = async (req: Request, res: Response) => {
     res.status(200).send({
       status: "success",
       data: notes,
+    });
+  } catch (err) {
+    res.status(500).send({
+      status: "error",
+      message: err,
+    });
+    return;
+  }
+};
+
+/**
+ * Retrieves the most recent note for a user
+ * GET /api/notes/recent/:userID
+ */
+const getRecentNote = async (req: Request, res: Response) => {
+  const { userID } = req.params;
+  try {
+    // Ensure userID is defined
+    if (!userID) {
+      res.status(400).send({
+        status: "error",
+        message: "Missing userID",
+      });
+      return;
+    }
+
+    // Check if user exists
+    const user = await User.findById(userID);
+    if (!user) {
+      res.status(400).send({
+        status: "error",
+        message: "User not found",
+      });
+      return;
+    }
+
+    const note = await Note.findOne({ userID }).sort({ lastUpdated: -1 });
+
+    // Check if note exists
+    if (!note) {
+      res.status(404).send({
+        status: "error",
+        message: "No note found",
+      });
+      return;
+    }
+
+    // Good to go
+    res.status(200).send({
+      status: "success",
+      data: note,
     });
   } catch (err) {
     res.status(500).send({
@@ -211,4 +262,11 @@ const deleteNote = async (req: Request, res: Response) => {
   }
 };
 
-export { getAllNotes, getNote, getSummary, saveNote, deleteNote };
+export {
+  getAllNotes,
+  getNote,
+  getRecentNote,
+  getSummary,
+  saveNote,
+  deleteNote,
+};
