@@ -1,5 +1,7 @@
 # dependencies
 /node_modules
+/Frontend/node_modules
+/server/node_modules
 
 # misc
 .DS_Store

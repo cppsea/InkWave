@@ -33,8 +33,8 @@ const login = async (req: Request, res: Response) => {
     } else {
       const areEqual = await bcrypt.compare(password, user.password);
       if (areEqual) {
-        const userData = { email: user.email, message: "Login successful" };
-        res.send(userData);
+        //const userData = { email: user.email, message: "Login successful" };
+        res.send(user);
       } else {
         res.status(401).send({ message: "Invalid password" });
       }
