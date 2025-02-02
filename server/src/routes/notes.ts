@@ -10,6 +10,12 @@ const router = express.Router();
 router.get("/:userID", notesController.getAllNotes);
 
 /**
+ * Retrieves the most recent note for a user
+ * GET /api/notes/recent/:userID
+ */
+router.get("/recent/:userID", notesController.getRecentNote);
+
+/**
  * Retrieves a specific note for a user
  * GET /api/notes/:userID/:noteID
  */
