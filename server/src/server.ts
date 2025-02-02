@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import app from "./app";
 import dotenv from "dotenv";
 import seedData from "./utils/seedData";
+import User from "./models/UserSchema";
+import { join } from "path";
 
 dotenv.config();
 

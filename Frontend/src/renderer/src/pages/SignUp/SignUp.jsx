@@ -14,7 +14,6 @@ const SignUp = () => {
     let isValidToRegister = true;
     // const [isValidToRegister, setIsValidToRegister] = useState(true);
 
-
     const handleClickRegister = async () => {
         isValidToRegister = true;
 
@@ -55,8 +54,9 @@ const SignUp = () => {
                     "Content-type": "application/json"
                 },
                 body: JSON.stringify(userInformation)
-            }).then((response) => {
-                console.log("response: ", response);
+            }).then(async (response) => {
+                const result = await response.json();
+                console.log("id: ", result.user._id);
             })
         }
 
