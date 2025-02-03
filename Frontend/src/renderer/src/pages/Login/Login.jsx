@@ -23,7 +23,7 @@ const Login = () => {
         }).then(async (response) => {
             const result = await response.json();
             console.log("result: ", result);
-            console.log("id: ", result.user._id);
+            console.log("id: ", result._id);
         })
     }
 
