@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Home.css'
 
-const Home = () => {
-  const [showPopup, setShowPopup] = useState(false)
+const Home = ({userID}) => {
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    console.log("home page: ", userID);
+  }, [])
 
   const handleScanClick = () => {
     setShowPopup(true)
