@@ -2,15 +2,11 @@ import {Link, useNavigate} from "react-router-dom";
 import "./Login.css";
 import { useEffect, useState } from "react";
 
-const Login = ({userID, setUserID}) => {
+const Login = ({setUserID}) => {
 
     const [emailInput, setEmailInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
     const navigate = useNavigate();
-
-    useEffect(() => {
-        console.log("userID", userID)
-    }, [])
 
     const handleClickLogin = async () => {
         const userInformation = {

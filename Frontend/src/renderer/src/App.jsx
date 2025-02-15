@@ -22,7 +22,7 @@ function App() {
           <Route path="/notes" element={<NotesPage />} />
           <Route path="/camera" element={<Camera />} />
           <Route path="/upload" element={<Upload />} />
-          <Route path="/login" element={<Login userID={userID} setUserID={setUserID}/>} />
+          <Route path="/login" element={<Login setUserID={setUserID}/>} />
           <Route path="/register" element={<SignUp />} />
         </Routes>
       </Router>
