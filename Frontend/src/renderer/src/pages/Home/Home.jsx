@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Home.css'
 
-const Home = ({userID}) => {
+const Home = ({userID, setUserID}) => {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
@@ -15,6 +15,10 @@ const Home = ({userID}) => {
 
   const handleClosePopup = () => {
     setShowPopup(false)
+  }
+
+  const handleClickLogOut = () => {
+    setUserID("");
   }
 
   return (
@@ -47,7 +51,7 @@ const Home = ({userID}) => {
       )}
 
       <Link to="/login">
-        <button className="home-button home-button__log-out">Log out</button>
+        <button className="home-button home-button__log-out" onClick={handleClickLogOut}>Log out</button>
       </Link>
     </div>
   )

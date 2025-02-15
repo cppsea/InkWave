@@ -17,12 +17,12 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Home userID={userID}/>} />
+          <Route path="/" element={<Home userID={userID} setUserID={setUserID}/>} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/notes" element={<NotesPage />} />
           <Route path="/camera" element={<Camera />} />
           <Route path="/upload" element={<Upload />} />
-          <Route path="/login" element={<Login setUserID={setUserID}/>} />
+          <Route path="/login" element={<Login userID={userID} setUserID={setUserID}/>} />
           <Route path="/register" element={<SignUp />} />
         </Routes>
       </Router>
