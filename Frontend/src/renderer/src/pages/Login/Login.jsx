@@ -1,11 +1,12 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import "./Login.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Login = () => {
+const Login = ({setUserID}) => {
 
     const [emailInput, setEmailInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
+    const navigate = useNavigate();
 
     const handleClickLogin = async () => {
         const userInformation = {
@@ -23,7 +24,11 @@ const Login = () => {
         }).then(async (response) => {
             const result = await response.json();
             console.log("result: ", result);
-            console.log("id: ", result.user._id);
+            console.log("id: ", result._id);
+            if (result._id !== undefined) {
+                setUserID(result._id);
+                navigate("/");
+            }
         })
     }
 

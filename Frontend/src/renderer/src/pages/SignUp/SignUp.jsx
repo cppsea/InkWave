@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import './SignUp.css';
 import {useState} from 'react';
 
@@ -13,6 +13,8 @@ const SignUp = () => {
     const [isValidConfirmPassword, setIsValidConfirmPassword] = useState(true);
     let isValidToRegister = true;
     // const [isValidToRegister, setIsValidToRegister] = useState(true);
+
+    const navigate = useNavigate();
 
     const handleClickRegister = async () => {
         isValidToRegister = true;
@@ -57,10 +59,11 @@ const SignUp = () => {
             }).then(async (response) => {
                 const result = await response.json();
                 console.log("id: ", result.user._id);
+                if (result.user._id !== undefined) {
+                    navigate("/login");
+                }
             })
         }
-
-        console.log("clicked sign up");
     }
 
     const handleChangeEmailInput = (event) => {
