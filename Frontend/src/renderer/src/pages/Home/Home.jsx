@@ -37,6 +37,10 @@ const Home = ({userID, setUserID}) => {
     }
   }
 
+  const handleClickLogOut = () => {
+    setUserID("");
+  }
+
   return (
     <div className="home-container">
       <h1 className="title">InkWave</h1>
