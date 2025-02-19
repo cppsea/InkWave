@@ -64,4 +64,52 @@ const getUsers = async (req: Request, res: Response) => {
   }
 };
 
-export { getNotes, getUsers };
+/**
+ * Creates a note for a user
+ * POST /api/test/create
+ */
+const createNote = async (req: Request, res: Response) => {
+  try {
+    const { userID, name, image, md } = req.body;
+
+    // Validate required fields
+    if (!userID || !name || !md) {
+      res.status(400).send({
+        status: "error",
+        message: "Missing userID, note name, or markdown content",
+      });
+      return;
+    }
+
+    // Check if user exists
+    const user = await User.findById(userID);
+    if (!user) {
+      res.status(404).send({
+        status: "error",
+        message: "User not found",
+      });
+      return;
+    }
+
+    // Create note
+    const note = await Note.create({
+      userID,
+      name,
+      image: image || null,
+      md,
+      lastUpdated: new Date(),
+    });
+
+    res.status(200).send({
+      status: "success",
+      data: note,
+    });
+  } catch (err: any) {
+    res.status(500).send({
+      status: "error",
+      message: err.message || "Internal server error",
+    });
+  }
+};
+
+export { getNotes, getUsers, createNote };
