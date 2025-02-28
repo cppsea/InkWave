@@ -15,4 +15,10 @@ router.get("/notes", testController.getNotes);
  */
 router.get("/users", testController.getUsers);
 
+/**
+ * Creates a note for a user
+ * POST /api/test/create
+ */
+router.post("/create", testController.createNote);
+
 export default router;

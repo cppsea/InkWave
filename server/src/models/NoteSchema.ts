@@ -4,16 +4,14 @@ import { ImageInterface } from "./ImageSchema";
 import { SummaryInterface } from "./SummarySchema";
 
 export interface NoteInterface extends Document {
-  _id: mongoose.Types.ObjectId;
   userID: mongoose.Types.ObjectId | UserInterface;
   name: string;
   image: mongoose.Types.ObjectId | ImageInterface;
-  md: mongoose.Types.ObjectId | SummaryInterface;
+  md: string;
   lastUpdated: Date;
 }
 
 const NoteSchema: Schema = new Schema<NoteInterface>({
-  _id: Schema.Types.ObjectId,
   userID: {
     type: Schema.Types.ObjectId,
     ref: "User",
@@ -28,8 +26,8 @@ const NoteSchema: Schema = new Schema<NoteInterface>({
     ref: "Image",
   },
   md: {
-    type: Schema.Types.ObjectId,
-    ref: "Summary",
+    type: String,
+    required: true,
   },
   lastUpdated: {
     type: Date,
