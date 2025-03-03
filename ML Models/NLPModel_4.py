@@ -165,7 +165,7 @@ class NLPProcessor:
     def nlp_format(text_content):
         transformed_text = NLPProcessor.replace_bullet_points(text_content)
 
-        transformed_text_LLM = "llm_output.txt"
+        transformed_text_LLM = "llm_output.md"
         NLPProcessor.transform_text(transformed_text_LLM)
 
         highlighted_text = NLPProcessor.highlight_keywords(transformed_text)
