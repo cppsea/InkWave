@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Home.css'
+import InkwaveLogo from './image/InkwaveLogo.png'
 
-const Home = ({userID, setUserID}) => {
-  const [showPopup, setShowPopup] = useState(false);
+const Home = ({ userID, setUserID }) => {
+  const [showPopup, setShowPopup] = useState(false)
 
   useEffect(() => {
-    console.log("home page: ", userID);
+    console.log('home page: ', userID)
   }, [])
 
   const handleScanClick = () => {
@@ -38,14 +39,13 @@ const Home = ({userID, setUserID}) => {
   }
 
   const handleClickLogOut = () => {
-    setUserID("");
+    setUserID('')
   }
 
   return (
     <div className="home-container">
       <h1 className="title">InkWave</h1>
-      <div className="image-placeholder"></div>
-
+      <img src={InkwaveLogo} alt="inkwaveLogo" className="inkwave-logo" />
       <div className="button-container">
         <Link to="/dashboard">
           <button className="home-button">Go to Dashboard...</button>
@@ -73,7 +73,9 @@ const Home = ({userID, setUserID}) => {
       )}
 
       <Link to="/login">
-        <button className="home-button home-button__log-out" onClick={handleClickLogOut}>Log out</button>
+        <button className="home-button home-button__log-out" onClick={handleClickLogOut}>
+          Log out
+        </button>
       </Link>
     </div>
   )
