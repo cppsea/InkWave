@@ -2,6 +2,7 @@
 import React, { useRef, useState } from 'react'
 import './NotesPage.css'
 import { Link } from 'react-router-dom'
+import TurndownService from 'turndown';
 
 const NotesPage = () => {
   const [pages, setPages] = useState([''])
@@ -9,8 +10,7 @@ const NotesPage = () => {
   const [isItalic, setIsItalic] = useState(false)
   const [isUnderline, setIsUnderline] = useState(false)
   const editorRef = useRef([])
-
-
+  const turndownService = new TurndownService();
 
     const focusEditor = (editor, position = "start") => {
         if (editor) {
@@ -118,9 +118,28 @@ const NotesPage = () => {
     }
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const updatedPages = editorRef.current.map((editor) => editor?.innerHTML || '')
+    const markdownContent = turndownService.turndown(updatedPages[0]);
     setPages(updatedPages)
+
+    console.log("markdown content: ", markdownContent);
+
+    const noteInformation = {
+      name: "updatedName",
+      image: null,
+      md: markdownContent
+    }
+
+    const data = await fetch("http://localhost:1400/api/notes/save/67937b5f5d69699fa872f96e", {
+      method: "PATCH",
+      headers: {
+          "Content-type": "application/json"
+      },
+      body: JSON.stringify(noteInformation)
+    }).then(async (response) => {
+      console.log(response);
+    })
 
     //(used to see it being saved in console)
     console.log('Saved content:', updatedPages)
@@ -139,12 +158,16 @@ const NotesPage = () => {
         <Link to="/dashboard" className="back_button">
           ← Dashboard
         </Link>
-        <h1 className="title">Untitled</h1>
+        <div 
+          className="title"
+          contentEditable="true"
+        >
+          Untitled
+        </div>
         <button className="save_button" onClick={handleSave}>
           <i className="fas fa-save"></i> Save
         </button>
       </header>
-
       <div className="main_container">
         <div className="editor_container">
           {pages.map((content, index) => (
