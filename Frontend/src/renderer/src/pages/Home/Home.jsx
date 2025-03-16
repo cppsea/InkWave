@@ -19,22 +19,24 @@ const Home = ({ userID, setUserID }) => {
   }
 
   const handleOpenRecent = async () => {
-    try{
-      const response = await fetch('http://localhost:1400/api/notes/recent/${67937b5f5d69699fa872f96e}', {
-        method: 'GET',
-        headers: {
-          'Content-Type' : 'application/json',
+    try {
+      const response = await fetch(
+        'http://localhost:1400/api/notes/recent/${67937b5f5d69699fa872f96e}',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
         }
-      });
-      if(!response.ok) {
-        throw new Error(`Error opening file Stats: ${response.status}`);
-
+      )
+      if (!response.ok) {
+        throw new Error(`Error opening file Stats: ${response.status}`)
       }
-      
-      const data = await response.json();
-      console.log('fetched recent files: ', data);
-    } catch(error){
-      console.error('Error fetching recent files', error);
+
+      const data = await response.json()
+      console.log('fetched recent files: ', data)
+    } catch (error) {
+      console.error('Error fetching recent files', error)
     }
   }
 
@@ -54,7 +56,7 @@ const Home = ({ userID, setUserID }) => {
           Scan/Take Photos
         </button>
         <Link to="/notes">
-        <button className="home-button">Open Recent...</button>
+          <button className="home-button">Open Recent...</button>
         </Link>
       </div>
 
