@@ -40,11 +40,11 @@ const Dashboard = () => {
     if (selectedDocs.size === 0) return
 
     try {
-      await fetch('http://localhost:1400/api/test/notes', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ids: Array.from(selectedDocs) })
-      })
+      for (let id of selectedDocs) {
+        await fetch(`http://localhost:1400/api/notes/delete/${id}`, {
+          method: 'DELETE'
+        })
+      }
 
       setDocuments((prevDocs) => prevDocs.filter((doc) => !selectedDocs.has(doc.id)))
       setSelectedDocs(new Set())
