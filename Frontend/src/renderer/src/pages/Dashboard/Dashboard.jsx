@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
 import { Link, useNavigate } from 'react-router-dom'
 
-const Dashboard = ({setSelectedNoteId}) => {
+const Dashboard = ({setSelectedNoteId, setNoteContent, setNoteTitle}) => {
   const [documents, setDocuments] = useState([])
   const [deleteMode, setDeleteMode] = useState(false)
   const [selectedDocs, setSelectedDocs] = useState(new Set())
@@ -68,6 +68,8 @@ const Dashboard = ({setSelectedNoteId}) => {
 
   const handleClickNote = (noteId, doc) => {
     setSelectedNoteId(noteId);
+    setNoteContent(doc.preview);
+    setNoteTitle(doc.title);
     console.log("doc", doc);
     navigate("/notes")
   }

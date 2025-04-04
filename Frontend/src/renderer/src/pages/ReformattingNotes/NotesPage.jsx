@@ -3,8 +3,10 @@ import React, { useRef, useState, useEffect } from 'react'
 import './NotesPage.css'
 import { Link } from 'react-router-dom'
 import TurndownService from 'turndown';
+import markdownit from 'markdown-it';
+import sanitizeHtml from 'sanitize-html';
 
-const NotesPage = ({selectedNoteId}) => {
+const NotesPage = ({selectedNoteId, noteContent, noteTitle}) => {
   const [pages, setPages] = useState([''])
   const [isBold, setIsBold] = useState(false)
   const [isItalic, setIsItalic] = useState(false)
@@ -12,10 +14,39 @@ const NotesPage = ({selectedNoteId}) => {
   const [title, setTitle] = useState("Untitled");
   const editorRef = useRef([])
   const turndownService = new TurndownService();
+  const md = markdownit();
 
   useEffect(() => {
     console.log("selected note id", selectedNoteId);
   }, [selectedNoteId])
+
+  useEffect(() => {
+    console.log(noteContent);
+    const sanitizedContent = sanitizeHtml(md.render(noteContent), {
+      allowedTags: ['b', 'i', 'u'],
+      allowedAttributes: {}
+    })
+    const htmlContent = [sanitizedContent];
+    setPages(htmlContent);
+    editorRef.current[0].innerHTML = htmlContent;
+  }, [noteContent])
+
+  useEffect(() => {
+    setTitle(noteTitle);
+  }, [noteTitle])
+
+  useEffect(() => {
+    console.log("pages", pages)
+    if (editorRef.current) {
+      console.log("editorRef", editorRef.current[0]);
+    }
+  }, [pages, editorRef])
+
+  // useEffect(() => {
+  //   if (editorRef.current) {
+  //     console.log("editorRef", editorRef.current[0]);
+  //   }
+  // }, [editorRef])
 
     const focusEditor = (editor, position = "start") => {
         if (editor) {
@@ -40,7 +71,11 @@ const NotesPage = ({selectedNoteId}) => {
       const currentEditor = editorRef.current[index];
   
       if (currentEditor) {
-          const text = currentEditor.innerHTML || '';
+        const sanitizedContent = sanitizeHtml(currentEditor.innerHTML, {
+          allowedTags: ['b', 'i', 'u'],
+          allowedAttributes: {}
+        })
+          const text = sanitizedContent || '';
           updatedPages[index] = text;
 
           currentEditor.style.height = "auto"; 

@@ -13,14 +13,16 @@ function App() {
 
   const [userID, setUserID] = useState("");
   const [selectedNoteId, setSelectedNoteId] = useState("");
+  const [noteContent, setNoteContent] = useState("");
+  const [noteTitle, setNoteTitle] = useState("");
 
   return (
     <div>
       <Router>
         <Routes>
           <Route path="/" element={<Home userID={userID} setUserID={setUserID}/>} />
-          <Route path="/dashboard" element={<Dashboard setSelectedNoteId={setSelectedNoteId}/>} />
-          <Route path="/notes" element={<NotesPage selectedNoteId={selectedNoteId}/>} />
+          <Route path="/dashboard" element={<Dashboard setSelectedNoteId={setSelectedNoteId} setNoteContent={setNoteContent} setNoteTitle={setNoteTitle}/>} />
+          <Route path="/notes" element={<NotesPage selectedNoteId={selectedNoteId} noteContent={noteContent} noteTitle={noteTitle}/>} />
           <Route path="/camera" element={<Camera />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/login" element={<Login setUserID={setUserID}/>} />

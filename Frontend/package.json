@@ -20,7 +20,9 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
+    "markdown-it": "^14.1.0",
     "react-router-dom": "^7.1.0",
+    "sanitize-html": "^2.15.0",
     "turndown": "^7.2.0"
   },
   "devDependencies": {
