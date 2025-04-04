@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-const Dashboard = () => {
+const Dashboard = ({setSelectedNoteId}) => {
   const [documents, setDocuments] = useState([])
   const [deleteMode, setDeleteMode] = useState(false)
   const [selectedDocs, setSelectedDocs] = useState(new Set())
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -65,6 +66,12 @@ const Dashboard = () => {
     })
   }
 
+  const handleClickNote = (noteId, doc) => {
+    setSelectedNoteId(noteId);
+    console.log("doc", doc);
+    navigate("/notes")
+  }
+
   return (
     <div className="dashboard">
       <div className="dashboard-header">
@@ -90,13 +97,16 @@ const Dashboard = () => {
                   onChange={() => handleCheckboxChange(doc.id)}
                 />
               )}
-              <div className="document-content">
-                <div className="document-preview">{doc.preview}</div>
-                <div className="document-info">
-                  <strong className="document-title">{doc.title}</strong>
-                  <p className="document-date">{doc.date}</p>
+                <div 
+                  className="document-content"
+                  onClick={() => handleClickNote(doc.id, doc)}
+                >
+                  <div className="document-preview">{doc.preview}</div>
+                  <div className="document-info">
+                    <strong className="document-title">{doc.title}</strong>
+                    <p className="document-date">{doc.date}</p>
+                  </div>
                 </div>
-              </div>
             </div>
           ))
         )}

@@ -65,6 +65,11 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+
+  background-color: transparent;
+  border: transparent;
+  resize: none;
+  overflow: hidden;
 }
 
 .main_container {
