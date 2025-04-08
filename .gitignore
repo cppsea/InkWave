@@ -1,2 +1,4 @@
 .venv
-/ML Models/.env
+ML Models/.env
+ML Models/Test Images/
+ML Models/__pycache__/
