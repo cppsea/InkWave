@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
 import { Link, useNavigate } from 'react-router-dom'
 
-const Dashboard = ({setSelectedNoteId, setNoteContent, setNoteTitle}) => {
+const Dashboard = ({ setSelectedNoteId, setNoteContent, setNoteTitle }) => {
   const [documents, setDocuments] = useState([])
   const [deleteMode, setDeleteMode] = useState(false)
   const [selectedDocs, setSelectedDocs] = useState(new Set())
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -18,7 +18,7 @@ const Dashboard = ({setSelectedNoteId, setNoteContent, setNoteTitle}) => {
             id: doc._id,
             title: doc.name,
             date: new Date(doc.lastUpdated).toLocaleDateString(),
-            preview: doc.md || 'No preview available'
+            preview: (doc.md || 'No preview available').slice(0, 250)
           }))
           setDocuments(formattedDocuments)
         }
@@ -67,11 +67,11 @@ const Dashboard = ({setSelectedNoteId, setNoteContent, setNoteTitle}) => {
   }
 
   const handleClickNote = (noteId, doc) => {
-    setSelectedNoteId(noteId);
-    setNoteContent(doc.preview);
-    setNoteTitle(doc.title);
-    console.log("doc", doc);
-    navigate("/notes")
+    setSelectedNoteId(noteId)
+    setNoteContent(doc.preview)
+    setNoteTitle(doc.title)
+    console.log('doc', doc)
+    navigate('/notes')
   }
 
   return (
@@ -99,16 +99,13 @@ const Dashboard = ({setSelectedNoteId, setNoteContent, setNoteTitle}) => {
                   onChange={() => handleCheckboxChange(doc.id)}
                 />
               )}
-                <div 
-                  className="document-content"
-                  onClick={() => handleClickNote(doc.id, doc)}
-                >
-                  <div className="document-preview">{doc.preview}</div>
-                  <div className="document-info">
-                    <strong className="document-title">{doc.title}</strong>
-                    <p className="document-date">{doc.date}</p>
-                  </div>
+              <div className="document-content" onClick={() => handleClickNote(doc.id, doc)}>
+                <div className="document-preview">{doc.preview}</div>
+                <div className="document-info">
+                  <strong className="document-title">{doc.title}</strong>
+                  <p className="document-date">{doc.date}</p>
                 </div>
+              </div>
             </div>
           ))
         )}
