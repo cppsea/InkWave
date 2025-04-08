@@ -7,7 +7,7 @@ const Home = ({ userID, setUserID }) => {
   const [showPopup, setShowPopup] = useState(false)
 
   useEffect(() => {
-    console.log('home page: ', userID)
+    // console.log('home page: ', userID)
   }, [])
 
   const handleScanClick = () => {
@@ -34,7 +34,7 @@ const Home = ({ userID, setUserID }) => {
       }
 
       const data = await response.json()
-      console.log('fetched recent files: ', data)
+      // console.log('fetched recent files: ', data)
     } catch (error) {
       console.error('Error fetching recent files', error)
     }

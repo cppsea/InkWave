@@ -70,7 +70,7 @@ const Dashboard = ({setSelectedNoteId, setNoteContent, setNoteTitle}) => {
     setSelectedNoteId(noteId);
     setNoteContent(doc.preview);
     setNoteTitle(doc.title);
-    console.log("doc", doc);
+    // console.log("doc", doc);
     navigate("/notes")
   }
 

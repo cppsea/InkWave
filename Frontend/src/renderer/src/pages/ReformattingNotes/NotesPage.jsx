@@ -17,11 +17,11 @@ const NotesPage = ({selectedNoteId, noteContent, noteTitle}) => {
   const md = markdownit();
 
   useEffect(() => {
-    console.log("selected note id", selectedNoteId);
+    // console.log("selected note id", selectedNoteId);
   }, [selectedNoteId])
 
   useEffect(() => {
-    console.log(noteContent);
+    // console.log(noteContent);
     const sanitizedContent = sanitizeHtml(md.render(noteContent), {
       allowedTags: ['b', 'i', 'u'],
       allowedAttributes: {}
@@ -36,9 +36,9 @@ const NotesPage = ({selectedNoteId, noteContent, noteTitle}) => {
   }, [noteTitle])
 
   useEffect(() => {
-    console.log("pages", pages)
+    // console.log("pages", pages)
     if (editorRef.current) {
-      console.log("editorRef", editorRef.current[0]);
+      // console.log("editorRef", editorRef.current[0]);
     }
   }, [pages, editorRef])
 
@@ -167,8 +167,6 @@ const NotesPage = ({selectedNoteId, noteContent, noteTitle}) => {
     const markdownContent = turndownService.turndown(updatedPages[0]);
     setPages(updatedPages)
 
-    console.log("markdown content: ", markdownContent);
-
     const noteInformation = {
       name: title,
       image: null,
@@ -182,11 +180,11 @@ const NotesPage = ({selectedNoteId, noteContent, noteTitle}) => {
       },
       body: JSON.stringify(noteInformation)
     }).then(async (response) => {
-      console.log(response);
+      // console.log(response);
     })
 
     //(used to see it being saved in console)
-    console.log('Saved content:', updatedPages)
+    // console.log('Saved content:', updatedPages)
   }
 
   ;<div className="preview">
@@ -229,7 +227,7 @@ const NotesPage = ({selectedNoteId, noteContent, noteTitle}) => {
           ))}
         </div>
 
-        <div className="toolbar toolbar-left">
+        {/* <div className="toolbar toolbar-left">
           <button id="red"></button>
           <button id="orange"></button>
           <button id="yellow"></button>
@@ -240,7 +238,7 @@ const NotesPage = ({selectedNoteId, noteContent, noteTitle}) => {
           <button id="magenta"></button>
           <button id="white"></button>
           <button id="black"></button>
-        </div>
+        </div> */}
 
         <div className="toolbar toolbar-right">
           <button>12</button>

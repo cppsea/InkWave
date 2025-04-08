@@ -46,9 +46,9 @@ const Camera = () => {
     }
   }, [videoDisplayRef, displayVideo])
 
-  useEffect(() => {
-    console.log('array', takenPhotos)
-  }, [takenPhotos])
+  // useEffect(() => {
+  //   console.log('array', takenPhotos)
+  // }, [takenPhotos])
 
   useEffect(() => {
     if (displayVideo && currentStream === null) {

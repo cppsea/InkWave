@@ -58,7 +58,7 @@ const SignUp = () => {
                 body: JSON.stringify(userInformation)
             }).then(async (response) => {
                 const result = await response.json();
-                console.log("id: ", result.user._id);
+                // console.log("id: ", result.user._id);
                 if (result.user._id !== undefined) {
                     navigate("/login");
                 }
