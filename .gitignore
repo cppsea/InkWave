@@ -10,3 +10,5 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.venv
+/ML Models/.env
