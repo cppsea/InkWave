@@ -1,8 +1,10 @@
+html,
 body {
   font-family: Arial, sans-serif;
   background-color: #f6fbf8;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .home-container {
@@ -12,13 +14,14 @@ body {
   justify-content: center;
   height: 100vh;
   position: relative;
+  background-color: #f6fbf8;
 }
 
 .title {
   font-size: 2rem;
   font-weight: bold;
   position: absolute;
-  top: 25%;
+  top: 17%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
@@ -31,13 +34,17 @@ body {
   background-color: #e0e0e0;
   border-radius: 10px;
   margin-bottom: 20px;
-  position: relative;
+  position: absolute;
+  top: 23%;
+
   z-index: 0;
 }
 
 .button-container {
   display: flex;
+  position: absolute;
   flex-direction: column;
+  top: 41%;
   gap: 15px;
 }
 
