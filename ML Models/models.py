@@ -116,8 +116,6 @@ def llm_model(document_path):
 # def nlp_model_pdf(document_path, processor):
 #     processor.to_pdf(document_path)
 
-<<<<<<< HEAD
-=======
 
 # cv and llm model combined
 def cv_llm(img_path):
@@ -127,4 +125,4 @@ def cv_llm(img_path):
 # test models in flow state
 
 cv_llm(notesImgPath)
->>>>>>> Fix-Preprocessing-PHJ-Branch
+
