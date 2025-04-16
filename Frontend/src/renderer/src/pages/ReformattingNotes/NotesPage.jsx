@@ -1,16 +1,52 @@
 /* eslint-disable prettier/prettier */
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import './NotesPage.css'
 import { Link } from 'react-router-dom'
 import TurndownService from 'turndown';
+import markdownit from 'markdown-it';
+import sanitizeHtml from 'sanitize-html';
 
-const NotesPage = () => {
+const NotesPage = ({selectedNoteId, noteContent, noteTitle}) => {
   const [pages, setPages] = useState([''])
   const [isBold, setIsBold] = useState(false)
   const [isItalic, setIsItalic] = useState(false)
   const [isUnderline, setIsUnderline] = useState(false)
+  const [title, setTitle] = useState("Untitled");
   const editorRef = useRef([])
   const turndownService = new TurndownService();
+  const md = markdownit();
+
+  useEffect(() => {
+    console.log("selected note id", selectedNoteId);
+  }, [selectedNoteId])
+
+  useEffect(() => {
+    console.log(noteContent);
+    const sanitizedContent = sanitizeHtml(md.render(noteContent), {
+      allowedTags: ['b', 'i', 'u'],
+      allowedAttributes: {}
+    })
+    const htmlContent = [sanitizedContent];
+    setPages(htmlContent);
+    editorRef.current[0].innerHTML = htmlContent;
+  }, [noteContent])
+
+  useEffect(() => {
+    setTitle(noteTitle);
+  }, [noteTitle])
+
+  useEffect(() => {
+    console.log("pages", pages)
+    if (editorRef.current) {
+      console.log("editorRef", editorRef.current[0]);
+    }
+  }, [pages, editorRef])
+
+  // useEffect(() => {
+  //   if (editorRef.current) {
+  //     console.log("editorRef", editorRef.current[0]);
+  //   }
+  // }, [editorRef])
 
     const focusEditor = (editor, position = "start") => {
         if (editor) {
@@ -35,7 +71,11 @@ const NotesPage = () => {
       const currentEditor = editorRef.current[index];
   
       if (currentEditor) {
-          const text = currentEditor.innerHTML || '';
+        const sanitizedContent = sanitizeHtml(currentEditor.innerHTML, {
+          allowedTags: ['b', 'i', 'u'],
+          allowedAttributes: {}
+        })
+          const text = sanitizedContent || '';
           updatedPages[index] = text;
 
           currentEditor.style.height = "auto"; 
@@ -48,6 +88,10 @@ const NotesPage = () => {
   
       setPages(updatedPages);
   };
+
+  const handleChangeTitle = (event) => {
+    setTitle(event.target.value);
+  }
 
   const handleKey = (index, event) => {
     const currentEditor = editorRef.current[index];
@@ -126,12 +170,12 @@ const NotesPage = () => {
     console.log("markdown content: ", markdownContent);
 
     const noteInformation = {
-      name: "updatedName",
+      name: title,
       image: null,
       md: markdownContent
     }
 
-    const data = await fetch("http://localhost:1400/api/notes/save/67937b5f5d69699fa872f96e", {
+    const data = await fetch(`http://localhost:1400/api/notes/save/${selectedNoteId}`, {
       method: "PATCH",
       headers: {
           "Content-type": "application/json"
@@ -158,12 +202,13 @@ const NotesPage = () => {
         <Link to="/dashboard" className="back_button">
           ← Dashboard
         </Link>
-        <div 
+        <textarea 
           className="title"
-          contentEditable="true"
+          value={title}
+          onChange={handleChangeTitle}
         >
           Untitled
-        </div>
+        </textarea>
         <button className="save_button" onClick={handleSave}>
           <i className="fas fa-save"></i> Save
         </button>

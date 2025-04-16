@@ -58,6 +58,11 @@ const Home = ({ userID, setUserID }) => {
         <Link to="/notes">
           <button className="home-button">Open Recent...</button>
         </Link>
+        <Link to="/login">
+          <button className="home-button" onClick={handleClickLogOut}>
+            Log out
+          </button>
+        </Link>
       </div>
 
       {showPopup && (
@@ -73,12 +78,6 @@ const Home = ({ userID, setUserID }) => {
           </Link>
         </div>
       )}
-
-      <Link to="/login">
-        <button className="home-button home-button__log-out" onClick={handleClickLogOut}>
-          Log out
-        </button>
-      </Link>
     </div>
   )
 }
