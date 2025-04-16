@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import Note, { NoteInterface } from "../models/NoteSchema.ts";
 import User from "../models/UserSchema.ts";
+import { spawn } from "child_process";
+import fs from "fs";
+import path from "path";
 
 /**
  * Retrieves all notes for a user
@@ -156,13 +159,49 @@ const getNote = async (req: Request, res: Response) => {
 };
 
 /**
+ * Helper function for getSummary
+ * Runs a python subprocess that calls a python script
+ * Path: file path of the script to run
+ * Args: args passed to python function parameters (e.g., file path of the image)
+ * Callback: returns the file path of the output file, expected in the same directory as models.py
+ */
+const runPython = (path : string, args : string, callback : any) => {
+  const pythonProcess = spawn("python", [path].concat(args));
+  let data = "";
+  
+  pythonProcess.stdout.on("data", (chunk) => {
+      data += chunk.toString();
+  });
+  pythonProcess.stderr.on("data", (err) => {
+      console.error(`stderr: ${err}`);
+  });
+  pythonProcess.on("close", (code) => {
+      if (code != 0) {
+          console.log(`${code}`);
+      }
+      else {
+          callback(String(data).replace(/(\r\n|\r|\n)/gm, ""));
+      }
+  })
+}
+
+/**
  * Receive an image and sends it to the ML models
  * Assuming no errors occur, this will automatically save the document into the database.
  * POST /api/notes/summary
  */
 const getSummary = async (req: Request, res: Response) => {
+  // TODO: update file paths to reflect location of models.py
+  try {
+    runPython("../../../ml_models/run_cv_llm.py", "./Test Images/digital.png", (result : string) => {
+      const txtFile = fs.readFileSync(path.join(__dirname, result), { encoding: 'utf-8' });
+      console.log(txtFile);
+    })
+  }
+  catch (err : any) {
+    console.error(err);
+  }
   res.send("POST request /api/notes/summary");
-  // ** TO DO ** //
 };
 
 /**

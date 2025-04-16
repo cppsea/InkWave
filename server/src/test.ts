@@ -1,8 +1,9 @@
 import { spawn } from "child_process";
+import fs from "fs";
+import path from "path";
 
-function runPython(path : string, args : string) {
+function runPython(path : string, args : string, callback : any) {
     console.log("testing python call...");
-    console.log(args);
     const pythonProcess = spawn("python", [path].concat(args));
     let data = "";
     
@@ -17,9 +18,22 @@ function runPython(path : string, args : string) {
             console.log(`${code}`);
         }
         else {
-            console.log(data);
+            console.log("Data:");
+            callback(String(data));
         }
     })
 }
 
-runPython("test.py", "hello python!");
+// runPython("test.py", "hello python!", (result: any) => {
+//     console.log(result);
+// });
+
+// runPython("test.py", "./filepath", (result: String) => {
+//     const file = fs.readFileSync(path.join(__dirname, result.replace(/(\r\n)/gm, "")), { encoding: 'utf-8' });
+//     console.log(file);
+// });
+
+runPython("../../ml_models/run_cv_llm.py", "./Test Images/digital.png", (result : string) => {
+    const txtFile = fs.readFileSync(path.join(__dirname, result), { encoding: 'utf-8' });
+    console.log(txtFile);
+})
