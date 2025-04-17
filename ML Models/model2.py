@@ -69,4 +69,4 @@ def evaluate_dataset(dataset_path='C:/Users/prern/OneDrive/Desktop/Codes/OLD cod
         print("⚠️ No images were processed.")
 
 # Run the evaluation
-evaluate_dataset()
+#evaluate_dataset()
