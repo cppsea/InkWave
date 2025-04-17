@@ -130,6 +130,8 @@ def llm_model(image_path, extracted_text_path):
 # def nlp_model_pdf(document_path, processor):
 #     processor.to_pdf(document_path)
 
+
+# cv and llm model combined
 def cv_llm(img_path):
     # Run computer vision model to extract text into a file
     extracted_text_path = cv_model(img_path)  # This should return a document path, like 'extracted_text.txt'
