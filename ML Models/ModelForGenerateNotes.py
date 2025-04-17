@@ -6,7 +6,7 @@ import numpy as np
 from model2 import OCRProcessor
 import base64
 
-notesImgPath = r"C:\Users\prern\OneDrive\Documents\GitHub\CS4250\InkWave\InkWave\cvModel\test2.jpg"
+notesImgPath = r"C:\Users\prern\OneDrive\Documents\GitHub\CS4250\InkWave\InkWave\models\cvModel\test2.jpg"
 notesImgPath2 = r"C:\Users\prern\OneDrive\Documents\GitHub\CS4250\InkWave\InkWave\ML Models\Test Images\PrernaNotesNoNums.jpg"
 
 def cv_model(img_path):
