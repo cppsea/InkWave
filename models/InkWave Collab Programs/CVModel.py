@@ -19,7 +19,11 @@ class OCRProcessor:
         # Initialize PaddleOCR with specified language
         self.ocr = PaddleOCR(use_angle_cls=True, lang=language)
 
+<<<<<<<< HEAD:models/cvModel/model.py
     def process_image(self,image_path):
+========
+    def process_image(self):
+>>>>>>>> temp-ML-frontend-backend:models/InkWave Collab Programs/CVModel.py
         """
         Process the input image and perform OCR.
         """
@@ -40,4 +44,8 @@ class OCRProcessor:
                     # Add extra spaces before text if x-coordinate of the bounding box is greater than 5
                     if bbox[0][0] > 5:
                         file.write("   ")
+<<<<<<<< HEAD:models/cvModel/model.py
                     file.write(f"{text}\n")
+========
+                    file.write(f"{text}\n")
+>>>>>>>> temp-ML-frontend-backend:models/InkWave Collab Programs/CVModel.py

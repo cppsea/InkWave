@@ -1,0 +1,260 @@
+html,
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #e8ffff;
+  /* height: 1920px;
+  width: 90vw; */
+  font-weight: normal;
+}
+
+.app_container {
+  display: flex;
+  background-color: #d8fdfd;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 95vw;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #d8fdfd;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 97vw;
+  padding-top: 50px;
+  position: relative;
+}
+
+.back_button {
+  align-self: flex-start;
+  margin-bottom: 5px;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  cursor: pointer;
+}
+.save_button {
+  align-self: flex-end;
+  margin-top: 5px;
+  font-size: 16px;
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+.save_button:hover {
+  background-color: #f0f0f0;
+}
+
+.title {
+  font-size: 20px;
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+  align-self: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: transparent;
+  border: transparent;
+  resize: none;
+  overflow: hidden;
+}
+
+.main_container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.editor {
+  width: 8.5in;
+  min-height: 11in;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.editor_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.page {
+  width: 8.5in;
+  min-height: 11in;
+  height: auto;
+  background: white;
+  border: 1px white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  transition: height 0.2s ease;
+  margin: 20px auto;
+}
+.editor_textarea {
+  font-weight: normal !important;
+}
+
+.editor_textarea {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  line-height: 1.6;
+  resize: none;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.document {
+  background: white;
+  width: 80%;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow-y: auto;
+  height: 70%;
+  margin: auto;
+}
+
+
+.toolbar {
+  position: sticky;
+  top: 10px; 
+  z-index: 1000; 
+  background-color: #fff; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+  padding: 10px;
+}
+
+
+.toolbar-left {
+  position: fixed;
+  top: 140px;
+  left: 50px;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(0px, auto));
+  grid-gap: 18px;
+  align-items: center;
+  background: #fff;
+  padding: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  width: 70px;
+  overflow-y: auto;
+  height: auto;
+}
+
+.toolbar-left button {
+  font-size: 16px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  background: none;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  font-weight: normal;
+}
+
+.toolbar-left button#red {
+  background-color: red;
+}
+
+.toolbar-left button#orange {
+  background-color: orange;
+}
+
+.toolbar-left button#yellow {
+  background-color: yellow;
+}
+
+.toolbar-left button#lightgreen {
+  background-color: lightgreen;
+}
+
+.toolbar-left button#darkgreen {
+  background-color: darkgreen;
+}
+
+.toolbar-left button#lightblue {
+  background-color: cyan;
+}
+
+.toolbar-left button#darkblue {
+  background-color: rgb(0, 8, 255);
+}
+
+.toolbar-left button#magenta {
+  background-color: magenta;
+}
+
+.toolbar-left button#white {
+  background-color: white;
+}
+
+.toolbar-left button#black {
+  background-color: black;
+}
+
+.toolbar-right {
+  position: fixed;
+  top: 140px;
+  right: 50px;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(40px, auto)); /* Adjust row height as needed */
+  grid-gap: 20px;
+  align-items: center;
+  background: #fff;
+  padding: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  width: 70px;
+  overflow-y: auto;
+
+  height: auto;
+}
+
+.toolbar-right button {
+  font-size: 16px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 50px;
+  height: 50px;
+}
+
+.toolbar hr {
+  width: 80%;
+  border: 0.5px solid #ddd;
+}
