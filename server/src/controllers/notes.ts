@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import Note, { NoteInterface } from "../models/NoteSchema.ts";
 import User from "../models/UserSchema.ts";
-import { spawn } from "child_process";
 import fs from "fs";
 import path from "path";
+import { NONAME } from "dns";
+import runPython from "../utils/runPython.ts";
 
 /**
  * Retrieves all notes for a user
@@ -159,49 +160,50 @@ const getNote = async (req: Request, res: Response) => {
 };
 
 /**
- * Helper function for getSummary
- * Runs a python subprocess that calls a python script
- * Path: file path of the script to run
- * Args: args passed to python function parameters (e.g., file path of the image)
- * Callback: returns the file path of the output file, expected in the same directory as models.py
- */
-const runPython = (path : string, args : string, callback : any) => {
-  const pythonProcess = spawn("python", [path].concat(args));
-  let data = "";
-  
-  pythonProcess.stdout.on("data", (chunk) => {
-      data += chunk.toString();
-  });
-  pythonProcess.stderr.on("data", (err) => {
-      console.error(`stderr: ${err}`);
-  });
-  pythonProcess.on("close", (code) => {
-      if (code != 0) {
-          console.log(`${code}`);
-      }
-      else {
-          callback(String(data).replace(/(\r\n|\r|\n)/gm, ""));
-      }
-  })
-}
-
-/**
  * Receive an image and sends it to the ML models
  * Assuming no errors occur, this will automatically save the document into the database.
  * POST /api/notes/summary
+ * 
+ * Include json object with the following literals in body:
+ * @body filepath (path of image): string
+ * @body id (user id in database): string
  */
 const getSummary = async (req: Request, res: Response) => {
-  // TODO: update file paths to reflect location of models.py
   try {
-    runPython("../../../ml_models/run_cv_llm.py", "./Test Images/digital.png", (result : string) => {
-      const txtFile = fs.readFileSync(path.join(__dirname, result), { encoding: 'utf-8' });
-      console.log(txtFile);
-    })
+    // Calls the cv model on the given filepath
+    runPython("../../../ml_models/run_cv_llm.py", req.body.filepath);
+    // TODO: Include when nlp and llm models are complete
+    // runPython("../../../ml_models/run_nlp_md.py", "./cv_output.txt");
+    const txtFile : string = fs.readFileSync(path.join(__dirname, "../../ml_models/cv_output.txt"), { encoding: 'utf-8' });
+    const user = await User.findById(req.body.id);
+
+    // Checks if user exists, if so create note and add to db
+    if (!user) {
+      res.status(500).send({
+        status: "error",
+        message: `Cannot find id: ${req.body.id}`
+      });
+    }
+    else {
+      const newNote = new Note({
+        userID: user._id,
+        name: `New Note ${new Date()}`,
+        image: null,
+        md: txtFile,
+      });
+      await newNote.save();
+      res.status(200).send({
+        status: "ok",
+        data: newNote
+      });
+    }
   }
   catch (err : any) {
-    console.error(err);
+    res.status(500).send({
+      status: "error",
+      message: err
+    });
   }
-  res.send("POST request /api/notes/summary");
 };
 
 /**

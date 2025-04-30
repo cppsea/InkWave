@@ -1,0 +1,21 @@
+   What is Machine Learning?
+   Definition: A branch of artificial intelligence that enables systems to learn patterns from
+   data and make decisions or predictions without explicit programming
+   Goal: Build models that generalize well to unseen data.
+   Types of Machine Learning
+   1. Supervised Learning
+   O
+   Training Data: Labeled data (input-output pairs)
+   O
+   Goal: Learn a mapping from inputs to outputs
+   Examples:
+   Regression (e.g., predicting house prices).
+   Classification (e.g., spam detection).
+   2. Unsupervised Learning.
+   Training Data: Unlabeled data.
+   O
+   Goal: Find hidden patterns or structure in data.
+   O
+   Examples:
+   Clustering (e.g., customer segmentation)
+   Dimensionality reduction (e.g., PCA)
