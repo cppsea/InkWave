@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Home.css'
 import InkwaveLogo from './image/InkwaveLogo.png'
 
@@ -35,10 +35,14 @@ const Home = ({ userID, setUserID }) => {
 
       const data = await response.json()
       console.log('fetched recent files: ', data)
+
+      navigate('/ReformattingNotes/NotesPage')
     } catch (error) {
       console.error('Error fetching recent files', error)
     }
   }
+
+  
 
   const handleClickLogOut = () => {
     setUserID('')
