@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
 import { Link, useNavigate } from 'react-router-dom'
 
+// dashboard component displaying user notes and allowing viewing or deleting them
 const Dashboard = ({ setSelectedNoteId, setNoteContent, setNoteTitle }) => {
-  const [documents, setDocuments] = useState([])
-  const [deleteMode, setDeleteMode] = useState(false)
-  const [selectedDocs, setSelectedDocs] = useState(new Set())
+  const [documents, setDocuments] = useState([]) // state storing fetched documents
+  const [deleteMode, setDeleteMode] = useState(false) // toggle for delete mode (true when user wants to select and delete notes)
+  const [selectedDocs, setSelectedDocs] = useState(new Set()) // set of selected coument ID for deletion
   const navigate = useNavigate()
 
+  // fetch documents when component first mounts
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
@@ -15,6 +17,7 @@ const Dashboard = ({ setSelectedNoteId, setNoteContent, setNoteTitle }) => {
         const result = await response.json()
         if (result.status === 'success') {
           const formattedDocuments = result.data.map((doc) => ({
+            // format document data for UI display
             id: doc._id,
             title: doc.name,
             date: new Date(doc.lastUpdated).toLocaleDateString(),
@@ -30,6 +33,7 @@ const Dashboard = ({ setSelectedNoteId, setNoteContent, setNoteTitle }) => {
     fetchDocuments()
   }, [])
 
+  // toggle delete mode on or off, if already in delete mode and items selected, delete them
   const toggleDeleteMode = () => {
     if (deleteMode && selectedDocs.size > 0) {
       handleDelete()
@@ -37,6 +41,7 @@ const Dashboard = ({ setSelectedNoteId, setNoteContent, setNoteTitle }) => {
     setDeleteMode((prev) => !prev)
   }
 
+  // deletes all selected documents by sending DELETE request to backend
   const handleDelete = async () => {
     if (selectedDocs.size === 0) return
 
@@ -47,6 +52,7 @@ const Dashboard = ({ setSelectedNoteId, setNoteContent, setNoteTitle }) => {
         })
       }
 
+      // removes deleted documents from state
       setDocuments((prevDocs) => prevDocs.filter((doc) => !selectedDocs.has(doc.id)))
       setSelectedDocs(new Set())
     } catch (error) {
@@ -54,6 +60,7 @@ const Dashboard = ({ setSelectedNoteId, setNoteContent, setNoteTitle }) => {
     }
   }
 
+  // handles checkbox toggle for selecting/unselecting a document in delete mode
   const handleCheckboxChange = (id) => {
     setSelectedDocs((prev) => {
       const newSelection = new Set(prev)
@@ -66,12 +73,13 @@ const Dashboard = ({ setSelectedNoteId, setNoteContent, setNoteTitle }) => {
     })
   }
 
+  // called when user clicks on a document to open/view it
   const handleClickNote = (noteId, doc) => {
-    setSelectedNoteId(noteId)
-    setNoteContent(doc.preview)
-    setNoteTitle(doc.title)
+    setSelectedNoteId(noteId) // set selected note ID
+    setNoteContent(doc.preview) // set content preview
+    setNoteTitle(doc.title) // set note title
     console.log('doc', doc)
-    navigate('/notes')
+    navigate('/notes') // navigate to the note detail view
   }
 
   return (
