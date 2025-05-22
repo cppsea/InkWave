@@ -48,6 +48,12 @@ const NotesPage = ({selectedNoteId, noteContent, noteTitle}) => {
   //   }
   // }, [editorRef])
 
+/**
+ * Focuses the given editor at the specified cursor position.
+ *
+ * @param {HTMLElement} editor - The contentEditable div to focus.
+ * @param {"start" | "end"} position - Where to place the cursor.
+ */
     const focusEditor = (editor, position = "start") => {
         if (editor) {
             editor.focus();
@@ -92,6 +98,13 @@ const NotesPage = ({selectedNoteId, noteContent, noteTitle}) => {
   const handleChangeTitle = (event) => {
     setTitle(event.target.value);
   }
+/**
+ * Handles keyboard events for navigation and deletion.
+ * Allows deleting empty pages and jumping between pages with arrows.
+ *
+ * @param {number} index - Index of the current editor.
+ * @param {KeyboardEvent} event - The key event triggered.
+ */
 
   const handleKey = (index, event) => {
     const currentEditor = editorRef.current[index];
