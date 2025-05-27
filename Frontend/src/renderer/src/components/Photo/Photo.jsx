@@ -1,22 +1,27 @@
 import {useEffect, useState} from 'react';
 import './Photo.css';
 
-const Photo = ({imageUrl, index, currentIndex}) => {
+const Photo = ({fileData, index, currentIndex}) => {
     const [displayPhoto, setDisplayPhoto] = useState(false);
 
-    useEffect(() => {
-        if (currentIndex === index) {
-            setDisplayPhoto(true);
-        }
-        else {
-            setDisplayPhoto(false);
-        }
-    }, [currentIndex])
+    // useEffect(() => {
+    //     if (currentIndex === index) {
+    //         setDisplayPhoto(true);
+    //     }
+    //     else {
+    //         setDisplayPhoto(false);
+    //     }
+    // }, [currentIndex])
 
     return (  
+        // <img
+        //     className={!displayPhoto ? "photo" : "photo photo--display"}
+        //     src={imageUrl}
+        //     alt="not found"
+        // />
         <img
-            className={!displayPhoto ? "photo" : "photo photo--display"}
-            src={imageUrl}
+            className="photo photo--display"
+            src={fileData.fileUrl}
             alt="not found"
         />
     );

@@ -23,8 +23,6 @@ const Login = ({setUserID}) => {
             body: JSON.stringify(userInformation)
         }).then(async (response) => {
             const result = await response.json();
-            console.log("result: ", result);
-            console.log("id: ", result._id);
             if (result._id !== undefined) {
                 setUserID(result._id);
                 navigate("/");

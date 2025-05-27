@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -18,7 +18,6 @@ function createWindow() {
       sandbox: false
     }
   })
-
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
@@ -48,6 +47,45 @@ function createWindow() {
   // })
 }
 
+const handleFileSelection = async() => {
+  const dialogObject = await dialog.showOpenDialog();
+  const fs = require('fs');
+  console.log("outside of if branches");
+
+  // return the file path if selection is not cancelled
+  if (!dialogObject.canceled) {
+    const data = fs.readFileSync(dialogObject.filePaths[0], {type: 'image/jpeg'});
+    const fileData = {
+      path: dialogObject.filePaths[0],
+      content: data
+    }
+
+    return fileData;
+
+    // fs.readFile(dialogObject.filePaths[0], (err, data) => {
+    //   if (err) {
+    //     console.log("error");
+    //     throw err;
+    //   }
+    //   else {
+    //     console.log("success");
+    //     const fileBlobObject = new Blob([data], {type: 'image/jpeg'});
+        // const fileData = {
+        //   path: dialogObject.filePaths[0],
+        //   fileBlob: fileBlobObject
+        // }
+        // console.log(fileData);
+        // const fileData = [dialogObject.filePaths[0], fileBlobObject]
+        // console.log(fileData)
+        // return dialogObject.filePaths[0];
+      // }
+    // })
+    // console.log("path", dialogObject.filePaths[0]);
+    // console.log("blob: ", data)
+    // return dialogObject.filePaths[0];
+  }
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -64,7 +102,7 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
-
+  ipcMain.handle('retrieveFileData', handleFileSelection)
   createWindow()
 
   app.on('activate', function () {

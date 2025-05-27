@@ -18,34 +18,37 @@ const Upload = () => {
   return (
     <div className="upload-page">
       <div>
-        <UploadPhotoInput
+        {/* <UploadPhotoInput
           uploadPhotoInputRef={uploadPhotoInputRef}
           takenPhotos={takenPhotos}
           setTakenPhotos={setTakenPhotos}
           setCurrentIndex={setCurrentIndex}
-        />
+        /> */}
       </div>
       <div className={'upload-page__preview'}>
         <div className="upload-page__preview__container">
           <div className="upload-page__preview__container__photos-array" ref={photosContainerRef}>
-            {takenPhotos.map((photo, index) => (
+            {/* {takenPhotos.map((photo, index) => (
               <Photo key={index} index={index} imageUrl={photo} currentIndex={currentIndex} />
-            ))}
+            ))} */}
+            <Photo fileData={takenPhotos} currentIndex={currentIndex} />
+
           </div>
           <div className="upload-page__preview__container__buttons">
             <UploadPhotoButton
               uploadPhotoInputRef={uploadPhotoInputRef}
               takenPhotos={takenPhotos}
+              setTakenPhotos={setTakenPhotos}
             />
-            {takenPhotos.length !== 0 && <GenerateNotesButton />}
+            {takenPhotos.length !== 0 && <GenerateNotesButton takenPhoto={takenPhotos} />}
           </div>
         </div>
-        {takenPhotos.length !== 0 && currentIndex < takenPhotos.length - 1 && (
+        {/* {takenPhotos.length !== 0 && currentIndex < takenPhotos.length - 1 && (
           <PreviewNextPhotoButton setCurrentIndex={setCurrentIndex} />
         )}
         {takenPhotos.length !== 0 && currentIndex != 0 && (
           <PreviewPreviousPhotoButton setCurrentIndex={setCurrentIndex} />
-        )}
+        )} */}
       </div>
       <Link to="/">
         <HomeButton
