@@ -3,21 +3,26 @@ import { Link, useNavigate } from 'react-router-dom'
 import './Home.css'
 import InkwaveLogo from './image/InkwaveLogo.png'
 
+// home component, navigation for key features
 const Home = ({ userID, setUserID }) => {
   const [showPopup, setShowPopup] = useState(false)
 
+  // logs userID to console when component mounts
   useEffect(() => {
     console.log('home page: ', userID)
   }, [])
 
+  // handler to open scan popup
   const handleScanClick = () => {
     setShowPopup(true)
   }
 
+  // handler to close scan popup
   const handleClosePopup = () => {
     setShowPopup(false)
   }
 
+  // placeholder: would fetch the user's most recent document and navigate to it
   const handleOpenRecent = async () => {
     try {
       const response = await fetch(
@@ -42,8 +47,7 @@ const Home = ({ userID, setUserID }) => {
     }
   }
 
-  
-
+  // handler to clear user ID and log out
   const handleClickLogOut = () => {
     setUserID('')
   }
