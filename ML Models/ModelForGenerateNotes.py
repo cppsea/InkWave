@@ -1,5 +1,5 @@
-from paddleocr import PaddleOCR, draw_ocr
-import cv2
+#from paddleocr import PaddleOCR, draw_ocr
+#import cv2
 import skimage.morphology as morph
 import os
 import numpy as np
@@ -92,6 +92,7 @@ def llm_model(img_path, document_path):
     return output_file
 
 '''''
+load_dotenv(find_dotenv())
 
 def llm_model(image_path, extracted_text_path):
     client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
