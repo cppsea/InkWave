@@ -4,8 +4,8 @@ const GenerateNotesButton = ({takenPhoto}) => {
 
     const handleClickGenerate = async () => {
         const photoInformation = {
-            id: "67937b5f5d69699fa872f96e",
-            path: takenPhoto.path
+            filepath: takenPhoto.path,
+            id: "67937b5e5d69699fa872f968"
         }
 
         const data = await fetch("http://localhost:1400/api/notes/summary", {
