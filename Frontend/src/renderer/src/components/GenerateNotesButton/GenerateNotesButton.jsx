@@ -4,6 +4,7 @@ const GenerateNotesButton = ({takenPhoto}) => {
 
     const handleClickGenerate = async () => {
         const photoInformation = {
+            id: "67937b5f5d69699fa872f96e",
             path: takenPhoto.path
         }
 
