@@ -1,5 +1,5 @@
-#from paddleocr import PaddleOCR, draw_ocr
-#import cv2
+from paddleocr import PaddleOCR, draw_ocr
+import cv2
 import skimage.morphology as morph
 import os
 import numpy as np
