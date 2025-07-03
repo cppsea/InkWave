@@ -5,6 +5,7 @@ import fs from "fs";
 import path from "path";
 import { NONAME } from "dns";
 import runPython from "../utils/runPython.ts";
+import mongoose from "mongoose"
 
 /**
  * Retrieves all notes for a user
@@ -170,18 +171,20 @@ const getNote = async (req: Request, res: Response) => {
  */
 const getSummary = async (req: Request, res: Response) => {
   try {
+    const { userID } = req.body.id;
+    console.log(req.body.filepath);
     // Calls the cv model on the given filepath
-    runPython("../../../ml_models/run_cv_llm.py", req.body.filepath);
+    runPython("../ml_models/run_cv_llm.py", req.body.filepath);
     // TODO: Include when nlp and llm models are complete
     // runPython("../../../ml_models/run_nlp_md.py", "./cv_output.txt");
     const txtFile : string = fs.readFileSync(path.join(__dirname, "../../ml_models/cv_output.txt"), { encoding: 'utf-8' });
-    const user = await User.findById(req.body.id);
+    const user = await User.findById(userID);
 
     // Checks if user exists, if so create note and add to db
     if (!user) {
       res.status(500).send({
         status: "error",
-        message: `Cannot find id: ${req.body.id}`
+        message: `Cannot find id: ${userID}`
       });
     }
     else {
