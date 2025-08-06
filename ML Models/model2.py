@@ -2,6 +2,7 @@
 import os
 import re
 import cv2
+import json
 import pandas as pd
 from paddleocr import PaddleOCR
 from difflib import SequenceMatcher
@@ -11,21 +12,59 @@ def normalize_text(text):
 
 class OCRProcessor:
     def __init__(self, paddle_language='en'):
-        self.ocr = PaddleOCR(use_angle_cls=True, lang=paddle_language, show_log=False)
+        self.ocr = PaddleOCR(lang=paddle_language,
+                             use_doc_orientation_classify=True, 
+                             use_doc_unwarping=True, 
+                             use_textline_orientation=True, )
 
     def load_and_preprocess_image(self, image_path):
-        image = cv2.imread(image_path)
+        image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
         if image is None:
             raise FileNotFoundError(f"Image not found: {image_path}")
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-        return thresh
+        
+        max_side = 4000
+        h, w = image.shape[:2]
+        max_dim = max(h, w)
+        if max_dim > max_side:
+            scale = max_side / max_dim
+            new_w = int(w * scale)
+            new_h = int(h * scale)
+            image = cv2.resize(image, (new_w, new_h), interpolation=cv2.INTER_AREA)
+            print(f"[Resized] Image resized from {w}x{h} to {new_w}x{new_h}")
+        
+        # Optional: apply thresholding
+        _, thresh = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+        # Stack to create 3 channels: (H, W) -> (H, W, 3)
+        thresh_3ch = cv2.merge([thresh, thresh, thresh])
+        return thresh_3ch
+
+    def extract_rec_texts(self, results_json):
+        flattened_texts = []
+
+        if isinstance(results_json, list):
+            for item in results_json:
+                if isinstance(item, dict):
+                    rec_texts = item.get("res", {}).get("rec_texts", [])
+                    if isinstance(rec_texts, list):
+                        flattened_texts.extend(
+                            [text for text in rec_texts if isinstance(text, str) and text.strip()]
+                        )
+
+        return flattened_texts
 
     def extract_text(self, image):
-        result = self.ocr.ocr(image, cls=True)
-        if result is None:
-            return ""
-        return "\n".join([line[1][0] for box in result if box for line in box if line and len(line) > 1])
+        result = self.ocr.predict(
+            image,
+            use_doc_orientation_classify=True,
+            use_textline_orientation=True
+        )
+        for i, res in enumerate(result):
+            result_json = res.json
+            predicted_text = result_json["res"]["rec_texts"]
+
+        return "\n".join(predicted_text)
+
 
 
     def process_image(self, image_path):

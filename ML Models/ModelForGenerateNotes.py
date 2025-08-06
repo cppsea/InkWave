@@ -1,4 +1,4 @@
-from paddleocr import PaddleOCR, draw_ocr
+# from paddleocr import PaddleOCR, draw_ocr
 import cv2
 import skimage.morphology as morph
 import os
@@ -6,7 +6,7 @@ import numpy as np
 from model2 import OCRProcessor
 import base64
 
-notesImgPath = r"C:\Users\prern\OneDrive\Documents\GitHub\CS4250\InkWave\InkWave\models\cvModel\test2.jpg"
+notesImgPath = r"C:\Users\marca\Downloads\IMG_4212.jpg"
 notesImgPath2 = r"C:\Users\prern\OneDrive\Documents\GitHub\CS4250\InkWave\InkWave\ML Models\Test Images\PrernaNotesNoNums.jpg"
 
 def cv_model(img_path):
@@ -19,7 +19,6 @@ def cv_model(img_path):
 
     # Use it to process the image and extract text
     extracted_text = processor.process_image(img_path)
-
     if not extracted_text.strip():
         raise ValueError("No text found in image.")
 
@@ -28,7 +27,7 @@ def cv_model(img_path):
     with open(output_file, 'w', encoding='utf-8') as file:
         file.write(extracted_text)
 
-    return output_file
+    return extracted_text
 
 
 import os
@@ -102,6 +101,9 @@ def llm_model(image_path, extracted_text_path):
         base64_img = base64.b64encode(img_file.read()).decode("utf-8")
         data_url = f"data:image/jpeg;base64,{base64_img}"  # or image/png
 
+    prompt = "Fix the spelling and grammar errors of the extracted text indicated in the provided image and <extracted_text> and reformat the document \
+                to display the text in its intended format without adding new information."
+
     # Use gpt-4-turbo with vision support
     response = client.chat.completions.create(
         model="gpt-4-turbo",
@@ -109,15 +111,17 @@ def llm_model(image_path, extracted_text_path):
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": "Fix the spelling and grammar errors of the preceding document "
-                    "and reformat the document so that it displays the text in its intended format without adding new information, "
-                    "only fixing text that is already there. Print only the result without any additional text or responses."},
+                    {"type": "text", 
+                    "text": f"<prompt>{prompt}</prompt> <extracted_text>{extracted_text_path}</extracted_text>"},
                     {"type": "image_url", "image_url": {"url": data_url}}
                 ]
             }
         ],
         max_tokens=500
     )
+
+    
+    
 
     print(response.choices[0].message.content)
 
@@ -135,8 +139,8 @@ def llm_model(image_path, extracted_text_path):
 # cv and llm model combined
 def cv_llm(img_path):
     # Run computer vision model to extract text into a file
-    extracted_text_path = cv_model(img_path)  # This should return a document path, like 'extracted_text.txt'
-    
+    extracted_text_path = cv_model(img_path)  # This returns predictd result. Also written into cv_output.txt
+
     # Run LLM with both the image and the extracted document
     llm_model(img_path, extracted_text_path)
     
