@@ -1,0 +1,11 @@
+.next-photo-button {
+    position: relative;
+    background-color: #b3b3b3;
+    height: 55px; 
+    width: 170px;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 20px;
+    flex-shrink: 0;
+}
